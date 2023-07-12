@@ -23,4 +23,5 @@
   </div>
   
 
-  <p-toast position="top-right"></p-toast>
+  <p-toast *ngIf="showPopUp" position="top-right" [style]="{ 'margin-top': '16px' }">
+  </p-toast>

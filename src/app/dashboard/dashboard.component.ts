@@ -3,6 +3,8 @@ import { MenuItem } from 'primeng/api';
 import { OnInit } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { HttpClient } from '@angular/common/http';
+import { DashboardService } from '../Services/dashboard.service';
+import { AuthenticationService } from 'app/Services/autherntication-service.service';
 
 
 interface PageEvent {
@@ -69,7 +71,7 @@ export class DashboardComponent implements OnInit {
 
   isButtonActive: boolean[] = [false, false, false, false];
 
-  
+  customerDetails !: any;
 
   
   tableHeaders = [
@@ -78,7 +80,7 @@ export class DashboardComponent implements OnInit {
     'Mail Id'
   ];
   
-    constructor(private http : HttpClient)
+    constructor(private http : HttpClient,private dashboardService : DashboardService, private authService : AuthenticationService )
     {}
 
   ngOnInit() {
@@ -88,6 +90,15 @@ export class DashboardComponent implements OnInit {
     const textColor = documentStyle.getPropertyValue('--text-color');
     const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
     const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+
+
+      this.dashboardService.getAllCustomers().subscribe((response:any)=>
+      {
+        this.customerDetails = response.data;
+        console.log(this.customerDetails);
+      })
+      
+
 
     setTimeout(() => {
       this.value = 75; // Set the desired value
@@ -178,4 +189,9 @@ updateChart() {
   setActiveTab(tab: string): void {
     this.activeTab = tab;
   }
+
+  adminLogOut()
+      {
+        this.authService.logout();
+      }
 }

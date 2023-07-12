@@ -439,7 +439,7 @@
             <a class="navbar-brand" href="#">Dashboard</a>
             <ul class="navbar-nav ml-auto">
               <li class="nav-item">
-                <a class="nav-link" href="#">Logout</a>
+                <a type="button" class="nav-link" (click)= "adminLogOut()">Logout</a>
               </li>
             </ul>
           </nav>
@@ -496,6 +496,11 @@
                       <td>{{ item.phone }}</td>
                       <td>{{ item.mail }}</td>
                     </tr>
+                    <tr *ngFor="let customer of customerDetails">
+                        <td>{{ customer.customerName }}</td>
+                        <td>{{ customer.phoneNumber }}</td>
+                        <td>{{ customer.email }}</td>
+                      </tr>
                   </tbody>
                   
                         

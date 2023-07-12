@@ -19,14 +19,14 @@ export interface logInResponse
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-    private userSubject: BehaviorSubject<User | null>;
-    public user: Observable<User | null>;
+    private userSubject: BehaviorSubject<null>;
+    public user: Observable<null>;
 
     constructor(
         private router: Router,
         private http: HttpClient
     ) {
-        this.userSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('user')!));
+        this.userSubject = new BehaviorSubject(null);
         this.user = this.userSubject.asObservable();
     }
 
@@ -38,11 +38,11 @@ export class AuthenticationService {
         return this.http.post<any>(`https://localhost:7135/api/Auth/login`, loginForm.value)
             .pipe(map(user => {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('user', JSON.stringify(user.data.token));
+                localStorage.setItem('user',user.data.token);
 
-                console.log(JSON.stringify(user));
-                console.log(user.token);
-                this.userSubject.next(user);
+                // console.log(JSON.stringify(user));
+                // console.log(user.token
+               // this.userSubject.next(user);
                 return user;
             }));
     }
@@ -51,6 +51,6 @@ export class AuthenticationService {
         // remove user from local storage to log user out
         localStorage.removeItem('user');
         this.userSubject.next(null);
-        this.router.navigate(['/login']);
+        this.router.navigate(['/admin-login']);
     }
 }

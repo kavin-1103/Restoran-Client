@@ -4,6 +4,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'app/Services/autherntication-service.service';
 import { MessageService } from 'primeng/api';
+import { AfterViewInit } from '@angular/core';
+
 // import { AuthenticationService, Credentials, CredentialsService, LoginContext, } from 'src/app/services/auth';
 // import { ValidationService } from 'src/app/services/validation.service';
 // import { USERNAME_PATTERN } from 'src/app/shared/regex-patterns';
@@ -15,6 +17,7 @@ import { MessageService } from 'primeng/api';
 })
 export class AdminLogInComponent implements OnInit{
 
+  showPopUp: boolean= false;
   logInForm !: FormGroup;
   constructor(private authService : AuthenticationService,
               private formBuilder : FormBuilder,
@@ -35,7 +38,9 @@ export class AdminLogInComponent implements OnInit{
   // getErrorStateMatcher(): ValidationService {
   //   return this.validationService;
   // }
-
+  ngAfterViewInit() {
+    //this.adminLogin();
+  }
   
 
 
@@ -94,10 +99,11 @@ adminLogin()
         (response:any)=>
         {
           console.log("logged In succesfully");
-          
+          this.messageService.add({ severity: 'success', summary: 'Logged In', detail: 'Logged in successfully' });
+          this.showPopUp = true;
           
           this.router.navigate(['/dashboard']);
-          this.messageService.add({ severity: 'success', summary: 'Logged In', detail: 'Logged in successfully' });
+         
           
         }),
         (error: any) => {
@@ -110,4 +116,6 @@ adminLogin()
           console.log('Errors:', error.error.errors);
         }
       }
+
+      
 }

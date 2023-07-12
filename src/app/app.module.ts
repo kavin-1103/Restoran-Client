@@ -61,6 +61,8 @@ import { PasswordModule } from 'primeng/password';
 import { AdminLogInComponent} from './admin-log-in/admin-log-in.component';
 import { CardModule } from 'primeng/card';
 import { Sidebar } from 'primeng/sidebar';
+import {  HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtInterceptor } from './helpers/jwt.interceptor';
 
 
 
@@ -135,8 +137,10 @@ import { Sidebar } from 'primeng/sidebar';
   ],
   exports:[  TablerIconsModule
   ],
-  providers: [ConfirmationService, 
-    MessageService,DialogService],
+  providers: [ConfirmationService,
+    MessageService,DialogService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
