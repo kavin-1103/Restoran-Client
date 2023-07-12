@@ -1,0 +1,26 @@
+
+
+<div class="available-tables">
+  <h2 class="p-text-uppercase p-text-bold p-text-italic p-text-center" >Available Tables</h2>
+  <div class="table-container">
+    <div class="row p-4">
+      <div class="col-md-4 p-4" *ngFor="let table of availableTables">
+        <div class="table bg-warning fade-up table-hover " >
+          <img src="{{ table.image }}" alt="Table Image">
+          <h3>Table ID: {{ table.id }}</h3>
+          <p>Capacity: {{ table.capacity }}</p>
+          <p>Table Number: {{ table.tableNumber }}</p>
+          <p-button (click)="confirm1()" >Confirm</p-button>
+       
+        </div>
+        </div>
+      </div>
+    </div>
+    <div class="dialog">
+        <app-confirm-dialog></app-confirm-dialog>
+    </div>
+  </div>
+
+
+
+  

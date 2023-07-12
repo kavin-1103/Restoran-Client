@@ -1,0 +1,48 @@
+
+.hero-header {
+    background: linear-gradient(rgba(15, 23, 43, .9), rgba(15, 23, 43, .9)), url(../assets/img/bg-hero.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+.hero-header img {
+    animation: imgRotate 50s linear infinite;
+   
+}
+
+@keyframes imgRotate { 
+    100% { 
+        transform: rotate(360deg); 
+    } 
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+    color: rgba(255, 255, 255, .5);
+}
+
+
+.slide-in-left {
+    opacity: 0;
+    transform: translateX(-100%);
+    animation: slideInLeft 1s forwards;
+}
+
+@keyframes slideInLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.display-3 {
+    font-size: calc(1.525rem + 3.3vw);
+    font-weight: 800;
+    line-height: 1.2;
+}
+
