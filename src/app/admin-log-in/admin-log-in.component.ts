@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from 'app/Services/autherntication-service.service';
 import { MessageService } from 'primeng/api';
 import { AfterViewInit } from '@angular/core';
+import { Output, EventEmitter } from '@angular/core';
 
 // import { AuthenticationService, Credentials, CredentialsService, LoginContext, } from 'src/app/services/auth';
 // import { ValidationService } from 'src/app/services/validation.service';
@@ -17,8 +18,9 @@ import { AfterViewInit } from '@angular/core';
 })
 export class AdminLogInComponent implements OnInit{
 
-  showPopUp: boolean= false;
+  showPopUp: boolean= true;
   logInForm !: FormGroup;
+  email :any;
   constructor(private authService : AuthenticationService,
               private formBuilder : FormBuilder,
               private router: Router,
@@ -33,6 +35,7 @@ export class AdminLogInComponent implements OnInit{
     // if(this.credentialsService.isAuthenticated()){
     //   this.router.navigateByUrl("/dashboard")
     // }
+    
   }
 
   // getErrorStateMatcher(): ValidationService {
@@ -88,34 +91,59 @@ export class AdminLogInComponent implements OnInit{
       //     }
       //   }
     //   });
-   // }
+// }
+}
+
+success : boolean = false;
+
+adminLogin() {
+
+ 
+
+  this.authService.login(this.logInForm).subscribe(
+    (response: any) => {
+      console.log("Logged In successfully");
+      
+      setTimeout(() => {
+        this.router.navigateByUrl('/dashboard');
+      }, 1000); // Delay navigation by 3 seconds to match the toast duration
+    },
+    (error: any) => {
+      // Handle error response
+      console.error(error);
+      console.log('Status:', error.status);
+      console.log('Message:', error.message);
+      console.log('Errors:', error.error.errors);
 
       
-  }
-
-adminLogin()
-      {
-        this.authService.login(this.logInForm).subscribe(
-        (response:any)=>
-        {
-          console.log("logged In succesfully");
-          this.messageService.add({ severity: 'success', summary: 'Logged In', detail: 'Logged in successfully' });
-          this.showPopUp = true;
-          
-          this.router.navigate(['/dashboard']);
-         
-          
-        }),
-        (error: any) => {
-          // Handle error response
-          // This code will execute if the server responds with an error status code (non-2xx)
-          console.error(error); // Log the error for debugging purposes
-          // You can access the error details such as status code, message, and errors
-          console.log('Status:', error.status);
-          console.log('Message:', error.message);
-          console.log('Errors:', error.error.errors);
-        }
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: error.error.message,
+        });
       }
+  );
+}
 
+
+@Output() emailVerified: EventEmitter<string> = new EventEmitter<string>();
+forgotPassword()
+{
+  this.email = this.logInForm.get('email')?.value;
+  console.log(this.email);
+  this.authService.emailExist(this.email).subscribe(
+    (response: any) => {
       
+      this.emailVerified.emit(this.email);
+      this.router.navigate(['/admin-reset-password']);
+    },
+    (error:any) => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: error.error.message,
+      });
+    });
+}
+
 }

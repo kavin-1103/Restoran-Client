@@ -63,7 +63,13 @@ import { CardModule } from 'primeng/card';
 import { Sidebar } from 'primeng/sidebar';
 import {  HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
-
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { GridModule } from '@progress/kendo-angular-grid';
+import { TableModule } from 'primeng/table';
+import { MenuModule } from 'primeng/menu';
+import { AdminResetPasswordComponent } from './admin-reset-password/admin-reset-password.component';
+import { NgOtpInputModule } from 'ng-otp-input';
+import { AdminRestrictedComponent } from './admin-restricted/admin-restricted.component'
 
 
 
@@ -88,6 +94,9 @@ import { JwtInterceptor } from './helpers/jwt.interceptor';
     DashboardComponent,
     UserLogInComponent,
     AdminLogInComponent,
+    AdminDashboardComponent,
+    AdminResetPasswordComponent,
+    AdminRestrictedComponent
    
 
   ],
@@ -128,6 +137,10 @@ import { JwtInterceptor } from './helpers/jwt.interceptor';
   DialogModule,
   PasswordModule,
   CardModule,
+  GridModule,
+  TableModule,
+  MenuModule,
+  NgOtpInputModule
   
   
   

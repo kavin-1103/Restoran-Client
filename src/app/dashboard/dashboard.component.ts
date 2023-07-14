@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component ,ViewChild} from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { OnInit } from '@angular/core';
+import { OnInit , AfterViewChecked} from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { HttpClient } from '@angular/common/http';
 import { DashboardService } from '../Services/dashboard.service';
 import { AuthenticationService } from 'app/Services/autherntication-service.service';
+import { MessageService } from 'primeng/api';
 
 
 interface PageEvent {
@@ -18,6 +19,7 @@ interface PageEvent {
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
+  providers : [MessageService],
   animations: [
     trigger('valueChange', [
       state('0', style({ transform: 'rotate(0deg)' })),
@@ -36,7 +38,7 @@ interface PageEvent {
 
 
 export class DashboardComponent implements OnInit {
-
+  //@ViewChild('toast') toast: any;
   first: number = 0;
 
   rows: number = 10;
@@ -80,12 +82,16 @@ export class DashboardComponent implements OnInit {
     'Mail Id'
   ];
   
-    constructor(private http : HttpClient,private dashboardService : DashboardService, private authService : AuthenticationService )
+    constructor(private http : HttpClient,private dashboardService : DashboardService, private authService : AuthenticationService ,private messageService : MessageService)
     {}
 
-  ngOnInit() {
     
-    this.animateValue();
+  ngOnInit() {
+    // this.toast.show();
+    this.showSuccessMessage();
+
+    //this.animateValue();
+    
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
     const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
@@ -191,7 +197,20 @@ updateChart() {
   }
 
   adminLogOut()
-      {
-        this.authService.logout();
+  {
+      this.authService.logout();
+  }
+
+      isAdminLoggedIn(): boolean {
+        const token = localStorage.getItem('user');
+        return !!token;
+      }
+
+      showSuccessMessage() {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Logged In',
+          detail: 'Logged in successfully'
+        });
       }
 }

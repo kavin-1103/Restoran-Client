@@ -38,19 +38,20 @@ export class AuthenticationService {
         return this.http.post<any>(`https://localhost:7135/api/Auth/login`, loginForm.value)
             .pipe(map(user => {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('user',user.data.token);
-
-                // console.log(JSON.stringify(user));
-                // console.log(user.token
-               // this.userSubject.next(user);
+                localStorage.setItem('token',user.data.token);
                 return user;
             }));
     }
 
     logout() {
         // remove user from local storage to log user out
-        localStorage.removeItem('user');
+        localStorage.removeItem('token');
         this.userSubject.next(null);
         this.router.navigate(['/admin-login']);
+    }
+
+    emailExist( email : string)
+    {
+        return this.http.post<any>(`https://localhost:7135/api/Auth/login`,email);
     }
 }

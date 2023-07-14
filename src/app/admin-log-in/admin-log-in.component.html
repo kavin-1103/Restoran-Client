@@ -1,18 +1,23 @@
 <div class="d-flex justify-content-center align-items-center h-100">
-    <div class="card p-4 shadow-lg border border-dark rounded">
+    <div class="card p-4 shadow-lg border border-dark rounded mt-5">
       <form [formGroup]="logInForm" (ngSubmit)="onSubmit()">
-        <div class="row">
+        <div class="row ">
           <div class="col-md-12">
             <div class="p-fluid">
               <div class="form-group">
-                <label for="email">Admin Name</label>
+                <label for="email">Admin E-mail</label>
                 <input pInputText id="email" type="text" class="form-control" formControlName="email" />
+                
               </div>
               <div class="form-group">
                 <label for="password">Password</label>
                 <input pInputText id="password" type="password" class="form-control" formControlName="password" />
               </div>
             </div>
+            
+          </div>
+          <div class="d-flex mt-3">
+            <a  class="forgot-password-link" (click)="forgotPassword()">Forgot Password</a>
           </div>
           <div class="d-flex justify-content-center mt-3">
             <p-button label="Log In" icon="pi pi-user-plus" styleClass="p-button-success" (onClick)="adminLogin()"></p-button>
@@ -20,8 +25,9 @@
         </div>
       </form>
     </div>
+    <p-toast #toast position="top-right" [style]="{ 'margin-top': '16px' }">
+    </p-toast>
   </div>
   
 
-  <p-toast *ngIf="showPopUp" position="top-right" [style]="{ 'margin-top': '16px' }">
-  </p-toast>
+  
