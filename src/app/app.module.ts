@@ -29,7 +29,7 @@ import { FormFieldModule } from "@progress/kendo-angular-inputs";
 import { ButtonsModule } from "@progress/kendo-angular-buttons";
 import { AvailableTablesComponent } from './available-tables/available-tables.component';
 import { HttpClient } from '@angular/common/http';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule  ,HttpClientJsonpModule} from '@angular/common/http';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import {   ConfirmDialogComponent} from './confirm-dialog/confirm-dialog.component';
@@ -129,11 +129,12 @@ import { EditService } from './admin-functions/food-item/edit.service';
     ButtonsModule,
     DateInputsModule,
     FormFieldModule,
-    HttpClientModule,
+    HttpClientModule, 
     ConfirmDialogModule,
     ToastModule,
     ConfirmDialogModule,
-    BrowserAnimationsModule,MenubarModule,
+    BrowserAnimationsModule,
+    MenubarModule,
     SidebarModule,
     ButtonModule,
     NgChartsModule,
