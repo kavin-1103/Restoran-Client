@@ -50,6 +50,7 @@ export class AuthenticationService {
         this.router.navigate(['/admin-login']);
     }
 
+    
     emailExist( email : string)
     {
         return this.http.post<any>(`https://localhost:7135/api/Auth/login`,email);

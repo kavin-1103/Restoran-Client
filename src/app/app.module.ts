@@ -36,7 +36,7 @@ import {   ConfirmDialogComponent} from './confirm-dialog/confirm-dialog.compone
 
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DashboardComponent } from './dashboard/dashboard.component';
+
 import { MenubarModule } from 'primeng/menubar';
 import { SidebarModule } from 'primeng/sidebar';
 import {  NgChartsModule } from 'ng2-charts';
@@ -63,13 +63,18 @@ import { CardModule } from 'primeng/card';
 import { Sidebar } from 'primeng/sidebar';
 import {  HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
-import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+
 import { GridModule } from '@progress/kendo-angular-grid';
 import { TableModule } from 'primeng/table';
 import { MenuModule } from 'primeng/menu';
 import { AdminResetPasswordComponent } from './admin-reset-password/admin-reset-password.component';
 import { NgOtpInputModule } from 'ng-otp-input';
-import { AdminRestrictedComponent } from './admin-restricted/admin-restricted.component'
+import { AdminRestrictedComponent } from './admin-restricted/admin-restricted.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { RouterModule } from '@angular/router';
+import { routes } from './app-routing.module';
+
+
 
 
 
@@ -91,12 +96,13 @@ import { AdminRestrictedComponent } from './admin-restricted/admin-restricted.co
     ReservationFormComponent,
     AvailableTablesComponent,
     ConfirmDialogComponent,
-    DashboardComponent,
+  
     UserLogInComponent,
     AdminLogInComponent,
-    AdminDashboardComponent,
+
     AdminResetPasswordComponent,
-    AdminRestrictedComponent
+    AdminRestrictedComponent,
+
    
 
   ],
@@ -140,7 +146,9 @@ import { AdminRestrictedComponent } from './admin-restricted/admin-restricted.co
   GridModule,
   TableModule,
   MenuModule,
-  NgOtpInputModule
+  NgOtpInputModule,
+  NgbModule,
+  RouterModule.forRoot(routes, {useHash:false})
   
   
   

@@ -18,4 +18,16 @@ export class DashboardService {
     const url = 'https://localhost:7135/api/RegisteredCustomers';
     return this.http.get<ServiceResponse<any[]>>(url);
   }
+  
+  getCustomerCount(): Observable<ServiceResponse<any>>
+  {
+    const url = 'https://localhost:7135/CustomerCount';
+    return this.http.get<ServiceResponse<any>>(url);
+  }
+
+  getFoodItemCount() : Observable<ServiceResponse<any>>
+  {
+    const url = 'https://localhost:7135/api/FoodItemsControllerAdmin/CountFoodItems';
+    return this.http.get<ServiceResponse<any>>(url);
+  }
 }
