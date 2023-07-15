@@ -10,6 +10,7 @@ import { FoodItemComponent } from './food-item/food-item.component';
 import { OrderDetailComponent } from './order-detail/order-detail.component';
 import { DiningTableComponent } from './dining-table/dining-table.component';
 import { ReviewComponent } from './review/review.component';
+import { EditService } from "./food-item/edit.service";
 
 
 
@@ -20,15 +21,12 @@ import { ReviewComponent } from './review/review.component';
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
+  
+ 
    
   ],
-  declarations: [
-
-    FoodItemComponent,
-    OrderDetailComponent,
-    DiningTableComponent,
-    ReviewComponent
-  ],
+  declarations: [],
+  
 })
 
 export class AdminFunctionModule{}

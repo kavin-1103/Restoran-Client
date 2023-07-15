@@ -16,6 +16,10 @@ import { FullComponent } from './layouts/full/full.component';
 import { AdminFunctionModule } from './admin-functions/admin-functions.module';
 import { AdminDashboardComponent } from './dashboard copy/dashboard.component';
 import { ComponentsRoutes } from './admin-functions/admin-functions.routing';
+import { FoodItemComponent } from './admin-functions/food-item/food-item.component';
+import { DiningTableComponent } from './admin-functions/dining-table/dining-table.component';
+import { OrderDetailComponent } from './admin-functions/order-detail/order-detail.component';
+import { ReviewComponent } from './admin-functions/review/review.component';
 
 
 
@@ -42,10 +46,22 @@ export const routes: Routes = [
   children : [
      { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
     {
-      path:'dashboard',
-      loadChildren : ()=>
-      import ('./admin-functions/admin-functions.module').then((m)=>m.AdminFunctionModule)
-    },
+    path: 'dashboard', 
+     children : [
+      { path: '', component: AdminDashboardComponent }, // Dashboard home page
+      { path: 'food-item', component: FoodItemComponent }, // Food Item component
+      {path : 'dining-table',component: DiningTableComponent},
+      {path : 'order-detail',component:OrderDetailComponent},
+      {path: 'review', component:ReviewComponent}
+
+    ]
+  },
+     
+    // {
+    //   path:'dashboard',
+    //   loadChildren : ()=>
+    //   import ('./dashboard copy/dashboard.module').then((m)=>m.DashboardModule)
+    // },
     // {
     //   path:'admin-functions',
     //   loadChildren : ()=>

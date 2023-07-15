@@ -27,13 +27,20 @@ const routes: Routes = [
     data: {
       title: "Dashboard",
     },
-    component: AdminDashboardComponent,
-  
-    loadChildren : ()=>
-      import ('../admin-functions/admin-functions.module').then((m)=>m.AdminFunctionModule)
+     component: AdminDashboardComponent,
+  }
+]
+
+//   // children : [
+
+//   //   {path : 'food-item' , component: FoodItemComponent}
+//   //   // loadChildren : ()=>
+//   //   //   import ('../admin-functions/admin-functions.module').then((m)=>m.AdminFunctionModule)
+
+//   // ]
     
     
-  },
+//   },
   // {
   //   path: "dining-table",
  
@@ -85,7 +92,7 @@ const routes: Routes = [
   // }
 
 
-];
+//];
 
 @NgModule({
   imports: [
@@ -108,9 +115,9 @@ const routes: Routes = [
     CustomerDetailsComponent,
     TopCardsComponent,
     BlogCardsComponent,
-    // FoodItemComponent,
+    FoodItemComponent,
 
   ],
-  bootstrap : [CustomerDetailsComponent]
+  //bootstrap : [CustomerDetailsComponent]
 })
 export class DashboardModule {}

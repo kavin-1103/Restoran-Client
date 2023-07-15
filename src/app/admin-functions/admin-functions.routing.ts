@@ -9,32 +9,32 @@ import { AdminDashboardComponent } from 'app/dashboard copy/dashboard.component'
 
 
 export const ComponentsRoutes: Routes = [
-	{
-		path: '',
-        component : AdminDashboardComponent,
+	// {
+	// 	path: '',
+    //     component : AdminDashboardComponent,
         
-		children: [
-            {
-                path:'dashboard',
-                loadChildren : ()=>
-                import ('../dashboard copy/dashboard.module').then((m)=>m.DashboardModule)
-              },
-			{
-				path: 'food-item',
-				component: FoodItemComponent
-			},
-			{
-				path: 'dining-table',
-				component: DiningTableComponent
-			},
-			{
-				path: 'order-details',
-				component: OrderDetailComponent
-			},
-			{
-				path: 'review',
-				component: ReviewComponent
-			},
-		]
-	}
+	// 	children: [
+    //         {
+    //             path:'dashboard',
+    //             loadChildren : ()=>
+    //             import ('../dashboard copy/dashboard.module').then((m)=>m.DashboardModule)
+    //           },
+	// 		{
+	// 			path: 'food-item',
+	// 			component: FoodItemComponent
+	// 		},
+	// 		{
+	// 			path: 'dining-table',
+	// 			component: DiningTableComponent
+	// 		},
+	// 		{
+	// 			path: 'order-details',
+	// 			component: OrderDetailComponent
+	// 		},
+	// 		{
+	// 			path: 'review',
+	// 			component: ReviewComponent
+	// 		},
+	// 	]
+	// }
 ];

@@ -73,6 +73,15 @@ import { AdminRestrictedComponent } from './admin-restricted/admin-restricted.co
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { routes } from './app-routing.module';
+import { AdminDashboardComponent } from './dashboard copy/dashboard.component';
+import { SalesRatioComponent } from './dashboard copy/dashboard-components/sales-ratio/sales-ratio.component';
+import { FeedsComponent } from './dashboard copy/dashboard-components/feeds/feeds.component';
+import { CustomerDetailsComponent } from './dashboard copy/dashboard-components/customer-details/customer-details.component';
+import { TopCardsComponent } from './dashboard copy/dashboard-components/top-cards/top-cards.component';
+import { BlogCardsComponent } from './dashboard copy/dashboard-components/blog-cards/blog-cards.component';
+import { FoodItemComponent } from './admin-functions/food-item/food-item.component';
+import { DashboardModule } from './dashboard copy/dashboard.module';
+import { EditService } from './admin-functions/food-item/edit.service';
 
 
 
@@ -148,20 +157,17 @@ import { routes } from './app-routing.module';
   MenuModule,
   NgOtpInputModule,
   NgbModule,
-  RouterModule.forRoot(routes, {useHash:false})
-  
-  
-  
-
-    
-
+  RouterModule.forRoot(routes, {useHash:false}),
+  DashboardModule,
   ],
   exports:[  TablerIconsModule
   ],
   providers: [ConfirmationService,
     MessageService,DialogService,
+    EditService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
   ],
+  
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -27,7 +27,7 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '/dashboard/order-details',
+    path: '/dashboard/order-detail',
     title: 'Order Details',
     icon: 'bi bi-people',
     class: '',
