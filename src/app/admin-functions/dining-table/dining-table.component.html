@@ -19,14 +19,14 @@
         <button kendoGridAddCommand>Add new</button>
         <button
           kendoButton
-          [disabled]="!editService.hasChanges()"
+          [disabled]="!diningService.hasChanges()"
           (click)="saveChanges(grid)"
         >
           Save Changes
         </button>
         <button
           kendoButton
-          [disabled]="!editService.hasChanges()"
+          [disabled]="!diningService.hasChanges()"
           (click)="cancelChanges(grid)"
         >
           Cancel Changes

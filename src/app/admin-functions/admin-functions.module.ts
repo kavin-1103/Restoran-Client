@@ -26,7 +26,9 @@ import { EditService } from "./food-item/edit.service";
  
    
   ],
-  declarations: [],
+  declarations: [
+    
+  ],
   
 })
 

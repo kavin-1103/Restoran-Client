@@ -21,6 +21,8 @@ import { ReviewComponent } from "app/admin-functions/review/review.component";
 import { CarouselModule } from 'primeng/carousel';
 
 import { CardModule } from "primeng/card";
+import { FoodCategoryComponent } from "app/admin-functions/food-category/food-category.component";
+
 
 
 
@@ -122,7 +124,8 @@ const routes: Routes = [
     BlogCardsComponent,
     FoodItemComponent,
     DiningTableComponent,
-    ReviewComponent
+    ReviewComponent,
+    FoodCategoryComponent
   ],
   //bootstrap : [CustomerDetailsComponent]
 })

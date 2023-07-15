@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable, zip } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DiningTable } from './dining-table';
 
-const BASE_URL = 'https://localhost:7135/api/FoodItemsControllerAdmin';
+const BASE_URL = 'https://localhost:7135/api/admin/Tables';
 
 const CREATE_ACTION = 'create';
 const UPDATE_ACTION = 'update';
@@ -13,7 +13,7 @@ const REMOVE_ACTION = 'destroy';
 const itemIndex = (item: DiningTable, data: DiningTable[]): number => {
   for (let idx = 0; idx < data.length; idx++)
   {
-    if (data[idx].foodItemId === item.foodItemId)
+    if (data[idx].tableId === item.tableId)
     {
       return idx;
     }
@@ -25,7 +25,7 @@ const itemIndex = (item: DiningTable, data: DiningTable[]): number => {
 const cloneData = (data: DiningTable[]) => data.map((item) => Object.assign({}, item));
 
 @Injectable()
-export class EditService extends BehaviorSubject<DiningTable[]> {
+export class DiningService extends BehaviorSubject<DiningTable[]> {
   private data: DiningTable[] = [];
   private originalData: DiningTable[] = [];
   private createdItems: DiningTable[] = [];
@@ -57,20 +57,17 @@ export class EditService extends BehaviorSubject<DiningTable[]> {
 
   public create(item: DiningTable): void {
     const requestData = {
-      categoryId: item.categoryId,
-      itemName: item.itemName,
-      description: item.description,
-      price: item.price
+      tableId: item.tableId,
+      tableNumber: item.tableNumber,
+      capacity: item.capacity
     };
 
     this.http.post<any>(BASE_URL, requestData).subscribe(
       (response) => {
         const createdItem: DiningTable = {
-          foodItemId: response.foodItemId,
-          categoryId: item.categoryId,
-          itemName: item.itemName,
-          description: item.description,
-          price: item.price
+          tableId: response.tableId,
+          tableNumber: item.tableNumber,
+          capacity: item.capacity
         };
 
         this.createdItems.push(createdItem);
@@ -87,20 +84,17 @@ export class EditService extends BehaviorSubject<DiningTable[]> {
   public update(item: DiningTable): void {
     if (!this.isNew(item)) {
       const requestData = {
-        categoryId: item.categoryId,
-        itemName: item.itemName,
-        description: item.description,
-        price: item.price
+        tableId: item.tableId,
+        tableNumber: item.tableNumber,
+        capacity: item.capacity
       };
   
-      this.http.put<any>(`${BASE_URL}/${item.foodItemId}`, requestData).subscribe(
+      this.http.put<any>(`${BASE_URL}/${item.tableId}`, requestData).subscribe(
         (response) => {
           const updatedItem: DiningTable = {
-            foodItemId: item.foodItemId,
-            categoryId: item.categoryId,
-            itemName: item.itemName,
-            description: item.description,
-            price: item.price
+            tableId: item.tableId,
+            tableNumber: item.tableNumber,
+            capacity: item.capacity
           };
   
           const index = itemIndex(item, this.updatedItems);
@@ -145,7 +139,7 @@ export class EditService extends BehaviorSubject<DiningTable[]> {
   }
 
   public isNew(item: DiningTable): boolean {
-    return !item.foodItemId;
+    return !item.tableId;
   }
 
   public hasChanges(): boolean {
@@ -182,20 +176,17 @@ export class EditService extends BehaviorSubject<DiningTable[]> {
   
   private createAndFetch(item: DiningTable): Observable<any> {
     const requestData = {
-      categoryId: item.categoryId,
-      itemName: item.itemName,
-      description: item.description,
-      price: item.price
+        tableId: item.tableId,
+        tableNumber: item.tableNumber,
+        capacity: item.capacity
     };
   
     return this.http.post<any>(BASE_URL, requestData).pipe(
       map((response) => {
         const createdItem: DiningTable = {
-          foodItemId: response.foodItemId,
-          categoryId: item.categoryId,
-          itemName: item.itemName,
-          description: item.description,
-          price: item.price
+            tableId: response.tableId,
+            tableNumber: item.tableNumber,
+            capacity: item.capacity
         };
   
         this.createdItems.push(createdItem);
@@ -251,10 +242,10 @@ export class EditService extends BehaviorSubject<DiningTable[]> {
 
   private fetch(action = '', data?: DiningTable[]): Observable<any> {
     let url = BASE_URL;
-    if (action === UPDATE_ACTION && data && data.length === 1 && data[0].foodItemId) {
-      url += `/${data[0].foodItemId}`;
-    } else if (action === REMOVE_ACTION && data && data.length === 1 && data[0].foodItemId) {
-      url += `/${data[0].foodItemId}`;
+    if (action === UPDATE_ACTION && data && data.length === 1 && data[0].tableId) {
+      url += `/${data[0].tableId}`;
+    } else if (action === REMOVE_ACTION && data && data.length === 1 && data[0].tableId) {
+      url += `/${data[0].tableId}`;
     }
 
     if (action === CREATE_ACTION || action === UPDATE_ACTION || action === REMOVE_ACTION) {
