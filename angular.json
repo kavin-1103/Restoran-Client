@@ -33,14 +33,21 @@
               "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss",
               "src/assets/scss/style.scss",
-              
+
+              "node_modules/ngx-spinner/animations/ball-scale-multiple.css",
               "node_modules/primeng/resources/themes/saga-blue/theme.css",
               "node_modules/@progress/kendo-theme-default/dist/all.css",
               "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
-              "node_modules/primeng/resources/primeng.min.css"
+              "node_modules/primeng/resources/primeng.min.css",
+
+
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
+
+              
             ],
-            "scripts": ["node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
-                        "/node_modules/chart.js/dist/chart.js"]
+            "scripts": [
+
+            ]
           },
           "configurations": {
             "production": {

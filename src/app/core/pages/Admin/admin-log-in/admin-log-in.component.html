@@ -1,0 +1,89 @@
+<!-- <div class="d-flex justify-content-center align-items-center h-100">
+  <div class="card p-4 shadow-lg border border-dark rounded mt-5" style="max-width: 400px;">
+    <form [formGroup]="logInForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="p-fluid">
+            <div class="form-group">
+              <label for="email">Admin E-mail</label>
+              <input pInputText id="email" type="text" class="form-control" formControlName="email"
+                style="background-color: white;" />
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input pInputText id="password" type="password" class="form-control" formControlName="password"
+                style="background-color: white;" />
+            </div>
+          </div>
+        </div>
+        <div class="d-flex mt-3">
+          <a class="forgot-password-link" (click)="forgotPassword()">Forgot Password</a>
+        </div>
+        <div class="d-flex justify-content-center mt-3">
+          <p-button label="Log In" icon="pi pi-user-plus" styleClass="p-button-success" (onClick)="adminLogin()"></p-button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <p-toast #toast position="top-right" [style]="{ 'margin-top': '16px' }"></p-toast>
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <p class="modal-title" id="exampleModalLabel"> <span style="font-size: 25px;font-weight:700">Forget your password?</span><br>
+                  <small>Please provide your E-mail we will send the reset link</small></p>
+
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+          </div>
+
+          <div class="modal-body">
+              <div class="form-group pt-3">
+                  <div class="input-field"> <span class="fa fa-user p-2"></span> <input type="text" placeholder="Email"> </div>
+              </div>
+              <small class="text-danger">*Email is required*</small>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Send</button>
+          </div>
+      </div>
+  </div>
+</div> -->
+
+<div class="container d-flex justify-content-center align-items-center vh-100">
+  <div class="card p-4">
+    <form [formGroup]="logInForm" (ngSubmit)="adminLogin()">
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input pInputText id="email" type="text" class="form-control custom-input" formControlName="email" style="background-color: white;" placeholder="Enter your email"/>
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <p-password
+          class="w-full custom-input"
+          [feedback]="false"
+          placeholder="Password"
+          styleClass="p-password p-component p-inputwrapper p-input-icon-right"
+          [style]="{ 'width': '100%' }"
+          [inputStyle]="{ 'width': '100%' }"
+          [toggleMask]="true"
+          id="password"
+          formControlName="password"
+        ></p-password>
+      </div>
+      <div class="d-flex mt-3 mb-4" style="cursor: pointer;">
+        <a class="forgot-password-link" routerLink="/verify-email">Forgot Password</a>
+      </div>
+      <button type="submit" class="btn btn-primary w-100">Log In</button>
+    </form>
+  </div>
+</div>
+
+
+
+
+<p-toast></p-toast>

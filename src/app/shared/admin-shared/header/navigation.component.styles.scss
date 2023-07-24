@@ -1,0 +1,16 @@
+
+@import "./../../../assets/scss/style.scss";
+
+a.nav-link:hover {
+    cursor: pointer;
+  }
+  
+
+.nav-item{
+    cursor: pointer;
+}
+
+/* Add pointer cursor on hover for the Logout link */
+.nav-item a.nav-link:hover {
+  cursor: pointer;
+}

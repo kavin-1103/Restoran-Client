@@ -9,7 +9,8 @@
 //     providers: [ConfirmationService, MessageService]
 // })
 // export class ConfirmDialogComponent {
-//     constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
+//     constructor() {}
+// }
 
 //     confirm1() {
 //         this.confirmationService.confirm({

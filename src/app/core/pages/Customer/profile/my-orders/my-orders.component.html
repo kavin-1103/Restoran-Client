@@ -1,0 +1,55 @@
+
+
+  <section class="h-100" >
+    <div class="container h-100 py-5">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-10">
+          <!-- Use the ng-container here to loop through the displayed orders -->
+          <ng-container *ngFor="let order of getDisplayedOrders()">
+            <div class="mb-4">
+              <table class="table table-bordered table-striped ">
+                <thead>
+                  <tr>
+                    <th scope="col">Ordered Date</th>
+                    <th scope="col">Reserved Date</th>
+                    <th scope="col">Table Number</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{ formatDate(order.orderDate) }}</td>
+                    <td>{{ formatDate(order.reservationDate) }}</td>
+                    <td>{{ order.tableNumber }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+  
+            <div class="table-responsive">
+              <table class="table table-bordered table-striped ">
+                <thead>
+                  <tr>
+                    <th scope="col">Food Item</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Price</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let foodItem of order.foodItems">
+                    <td>{{ foodItem.foodItem }}</td>
+                    <td>{{ foodItem.quantity }}</td>
+                    <td>{{ foodItem.price }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  
+    <div class="flex justify-content-center">
+      <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="pageSize" [totalRecords]="orders.length" [rowsPerPageOptions]="[1, 2, 3]"></p-paginator>
+    </div>
+  </section>
+  

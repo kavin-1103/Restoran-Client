@@ -36,126 +36,180 @@
 
 
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { ConfirmationService, MessageService, ConfirmEventType } from 'primeng/api';
+import { Router } from '@angular/router';
+
+interface TableData {
+  tableId: number;
+  tableNumber: number;
+  capacity: number;
+}
 
 @Component({
   selector: 'app-reservation-form',
   templateUrl: './reservation-form.component.html',
-  styleUrls: ['./reservation-form.component.scss']
+  styleUrls: ['./reservation-form.component.scss'],
 })
-
 export class ReservationFormComponent implements OnInit {
   reservationForm!: FormGroup;
-  startTimeOptions: string[] = [];
-  endTimeOptions: string[] = [];
-  showAvailableTables : boolean = false;
+  maxReservationDate!: string;
 
-  minDate!: string;
-  maxDate!: string;
+  showAvailableTables: boolean = false;
+  availableTables: TableData[] = [];
 
-  startTimeSelected : boolean = false;
-
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private http: HttpClient,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService , 
+    private router : Router ,
+  ) {
     this.reservationForm = this.formBuilder.group({
-      date: ''
+      reservationDate: ['', [Validators.required]],
+      startTime: ['', Validators.required],
+      endTime: ['', Validators.required],
+      numberOfGuests: ['', Validators.required],
     });
-
-    const today = new Date();
-    const next20Days = new Date();
-    next20Days.setDate(today.getDate() + 20);
-
-    this.minDate = this.formatDate(today);
-    this.maxDate = this.formatDate(next20Days);
   }
 
-  ngOnInit() {
-    this.reservationForm = this.formBuilder.group({
-      date: '',
-      numberOfGuests: '',
-      startTime: '',
-      endTime: ''
-    });
-
-    this.generateStartTimeOptions();
+  ngOnInit(): void {
+    const maxDate = new Date();
+    maxDate.setDate(maxDate.getDate() + 5);
+    this.maxReservationDate = maxDate.toISOString().split('T')[0];
   }
 
-  generateStartTimeOptions() {
-    const startTime = new Date();
-    startTime.setHours(9, 0, 0); // Set initial start time to 9:00 AM
+  submitReservation() {
+    if (this.reservationForm.valid) {
+      const reservationData = {
+        tableId: 0, // Table ID will be set when the user selects a table
+        reservationDate: this.getReservationDateISOString(),
+        startTime: this.getTimeInISOStringFormat(
+          this.reservationForm.get('startTime')?.value
+        ),
+        endTime: this.getTimeInISOStringFormat(
+          this.reservationForm.get('endTime')?.value
+        ),
+        numberOfGuests: this.reservationForm.get('numberOfGuests')?.value,
+      };
 
-    const endTime = new Date();
-    endTime.setHours(20, 30, 0); // Set end time to 8:30 PM
-
-    const interval = 30; // Interval of 30 minutes
-
-    while (startTime <= endTime) {
-      const timeString = this.formatTime(startTime);
-      this.startTimeOptions.push(timeString);
-
-      startTime.setMinutes(startTime.getMinutes() + interval);
+      console.log(reservationData);
+      this.http
+        .post<any>('https://localhost:7135/api/customer/Reservations/Tables', reservationData)
+        .subscribe(
+          (response) => {
+            // Handle the response from the backend if needed
+            console.log('Response from the backend:', response);
+            if (response?.data && Array.isArray(response.data)) {
+              // The response contains the available table data
+              this.availableTables = response.data;
+              this.showAvailableTables = true; // Show the available tables section
+            } else {
+              console.error('Invalid response data:', response);
+            }
+          },
+          (error) => {
+            // Handle errors if the request fails
+            console.error('Error sending data to the backend:', error);
+            this.availableTables = []; // Clear availableTables on error
+            this.showAvailableTables = false;
+          }
+        );
     }
   }
 
-  formatTime(date: Date): string {
-    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  }
-
-  endTime() {
-    const selectedStartTime = this.reservationForm.value.startTime;
-    console.log(selectedStartTime);
-    // Calculate end time options based on selected start time
-    if (!selectedStartTime) {
-      this.startTimeSelected = false;
-    } else {
-      this.startTimeSelected = true;
-      // Calculate end time options based on selected start time
-      this.generateEndTimeOptions(selectedStartTime);
+  private getReservationDateISOString(): string {
+    const reservationDate = this.reservationForm.get('reservationDate')?.value;
+    // Check if the reservationDate is a valid date (not null, empty, or invalid format)
+    if (reservationDate) {
+      const date = new Date(reservationDate);
+      if (!isNaN(date.getTime())) {
+        // The date is valid, so convert it to ISO string
+        return date.toISOString();
+      }
     }
-    
+    // Return an empty string if the reservationDate is not valid
+    return '';
   }
 
-  generateEndTimeOptions(selectedStartTime: string) {
-    const startTimeParts = selectedStartTime.split(':');
-    console.log(startTimeParts);
-    const hours = parseInt(startTimeParts[0], 10);
-    const minutes = parseInt(startTimeParts[1], 10);
-    const startDateTime = new Date();
-    startDateTime.setHours(hours, minutes, 0);
-
-    console.log(startDateTime);
-  
-    const endDateTime30 = new Date(startDateTime.getTime() + 30 * 60000); // Add 30 minutes
-    const endDateTime60 = new Date(startDateTime.getTime() + 60 * 60000); // Add 60 minutes
-  
-    // console.log(endDateTime30);
-    // console.log(endDateTime60);
-    // this.endTimeOptions = [
-    //   this.formatTime(endDateTime30),
-    //   this.formatTime(endDateTime60)
-    // ];
-    const options: Intl.DateTimeFormatOptions = { hour: 'numeric', minute: 'numeric', hour12: true };
-
-      const endTime30 = endDateTime30.toLocaleTimeString([], options);
-      const endTime60 = endDateTime60.toLocaleTimeString([], options);
-
-      this.endTimeOptions = [endTime30, endTime60];
+  private getTimeInISOStringFormat(timeString: string): string {
+    const selectedDate = this.reservationForm.get('reservationDate')?.value;
+    const dateTimeString = `${selectedDate}T${timeString}`;
+    const time = new Date(dateTimeString);
+    return time.toISOString();
   }
 
-  formatDate(date: Date): string {
-    const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const day = date.getDate().toString().padStart(2, '0');
-    return `${year}-${month}-${day}`;
+  updateEndTime() {
+    const startTime = this.reservationForm.value.startTime;
+    if (startTime) {
+      // Convert the selected start time to a Date object
+      const startDate = new Date(`2000-01-01T${startTime}`);
+
+      // Calculate the end time options based on the selected start time
+      const endTimeOptions = [];
+      let nextTime = new Date(startDate);
+      while (nextTime.getHours() < 16) {
+        nextTime.setMinutes(nextTime.getMinutes() + 30);
+        if (nextTime.getHours() === 16) break; // Limit end time to 4:00 PM
+        endTimeOptions.push(nextTime.toTimeString().slice(0, 5));
+      }
+
+      // Update the end time options in the form control
+      this.reservationForm.get('endTime')?.setValue(endTimeOptions[0]);
+    }
   }
 
+  confirmReservation(tableId: number) {
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to proceed with the reservation?',
+      accept: () => {
+        // Proceed with the reservation creation after the user confirms
+        const reservationData = {
+          tableId: tableId, // Set the selected table ID for the reservation
+          reservationDate: this.getReservationDateISOString(),
+          startTime: this.getTimeInISOStringFormat(
+            this.reservationForm.get('startTime')?.value
+          ),
+          endTime: this.getTimeInISOStringFormat(
+            this.reservationForm.get('endTime')?.value
+          ),
+          numberOfGuests: this.reservationForm.get('numberOfGuests')?.value,
+        };
 
-
-  onSubmit()
-  {
-    this.showAvailableTables = true;
-    console.log("Shown available tables");
-
+        console.log(reservationData);
+        this.http
+          .post<any>(
+            'https://localhost:7135/api/customer/Reservations/ReserveTable',
+            reservationData
+          )
+          .subscribe(
+            (response) => {
+              // Handle the response from the backend if needed
+              console.log('Response from the backend:', response);
+              // Show a success message or perform other actions as required.
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Reservation Successful',
+                detail: 'Your reservation has been confirmed.',
+              });
+              this.router.navigate(['/order'], { queryParams: { table_id: tableId } });
+              this.showAvailableTables = false; // Hide the available tables section after the reservation is confirmed.
+            },
+            (error) => {
+              // Handle errors if the request fails
+              console.error('Error sending data to the backend:', error);
+              // Show an error message if required.
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Reservation Failed',
+                detail: 'An error occurred while making the reservation.',
+              });
+              this.showAvailableTables = false; // Hide the available tables section on error.
+            }
+          );
+      },
+    });
   }
 }
-
 

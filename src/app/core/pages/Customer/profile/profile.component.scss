@@ -1,0 +1,50 @@
+// /* Set the container and row to full height */
+
+  
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 300px;
+    background-color: #000;
+    color: #fff;
+    padding: 20px;
+  }
+  
+  .sidebar-title {
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  
+  .list-group {
+    margin-bottom: 20px;
+  }
+  
+  .list-group-item {
+    color: #fff;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .list-group-item.active {
+    background-color: rgb(239, 178, 65);
+    color: #000;
+  }
+
+  .main-div
+  {
+    display: flex;
+    flex-direction: column;
+
+  }
+
+
+  /* Custom class to add space between the buttons */
+.custom-button {
+  margin-right: 10px; 
+  // font-size: 18px; 
+  padding: 10px 10px;
+  width: 100px;  
+}

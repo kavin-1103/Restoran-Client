@@ -1,0 +1,28 @@
+<div class="container d-flex justify-content-center align-items-center vh-100" *ngIf="!emailVerified">
+  <div class="card p-4">
+    <form [formGroup]="resetPasswordForm" (submit)="verifyOTP()" >
+      <div class="mb-3">
+        <label for="emailInput" class="form-label">Email</label>
+        <input type="email" class="form-control" id="emailInput" placeholder="Enter your email" formControlName="email">
+      </div>
+     
+      <ng-container *ngIf="verified">
+        <div class="mb-3">
+          <label for="otpInput" class="form-label">Enter OTP</label>
+          <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="{length:6}" formControlName="otp"></ng-otp-input>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Confirm</button>
+      </ng-container>
+
+      <div *ngIf="!verified">
+        <button type="button" class="btn btn-primary w-100" (click)="sendOTP()">Send OTP</button>
+      </div>
+    </form>
+
+    <div *ngIf="verified">
+      <p class="text-success">Please check your registered email for OTP.</p>
+    </div>
+  </div>
+</div>
+<p-toast></p-toast>
+

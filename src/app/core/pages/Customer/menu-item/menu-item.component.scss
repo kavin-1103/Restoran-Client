@@ -1,0 +1,145 @@
+// .table {
+//     border-radius: 10px;
+//     padding: 10px;
+//   }
+  
+//   .table-container {
+//     padding-inline: 50px;
+//   }
+  
+// //   .table:hover {
+// //     transform: scale(1.05);
+// //     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+// //     z-index: 1;
+// //     position: relative;
+// //   }
+  
+  .fade-up {
+    animation: fade-up-animation 1s ease-out;
+  }
+  
+  @keyframes fade-up-animation {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 300px;
+    background-color: #000;
+    color: #fff;
+    padding: 20px;
+  }
+  
+  .sidebar-title {
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  
+  .list-group {
+    margin-bottom: 20px;
+  }
+  
+  .list-group-item {
+    color: #fff;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .list-group-item.active {
+    background-color: yellow;
+    color: #000;
+  }
+  
+//   .content {
+//     margin-left: 200px; /* Adjust this value to match the width of the sidebar */
+//     padding: 20px;
+//   }
+  
+
+  .bg-green {
+    background-color: green;
+  }
+  
+  
+
+//   .card-body {
+//     display: flex;
+//     align-items: center;
+//     justify-content: space-between;
+//   }
+  
+//   .name-description {
+//     flex: 1;
+//   }
+  
+//   .name-description h5 {
+//     margin-bottom: 5px;
+//   }
+
+  .card {
+    /* Add padding and margin to the card */
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .card-title {
+    /* Add margin-bottom for spacing below the card title */
+    margin-bottom: 10px;
+  }
+  
+  .card-text {
+    /* Add margin-bottom for spacing below the card text */
+    margin-bottom: 15px;
+  }
+  .table {
+    /* Add some padding to the table element inside the card body */
+    padding: 10px;
+    border-radius: 10px;
+  }
+  
+  
+  .quantity-control {
+    /* Set a minimum height for the quantity-control to prevent collapsing */
+    min-height: 30px;
+  }
+  
+  .quantity-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    width: 30px;
+    height: 30px;
+  }
+  
+  .quantity {
+    font-weight: bold;
+  }
+  
+  .arrow-up:hover,
+  .arrow-down:hover {
+    background-color: #ccc;
+  }
+  
+  // .arrow-up-icon,
+  // .arrow-down-icon {
+  //   line-height: 20px;
+  // }
+  
+ 
+  
+
+

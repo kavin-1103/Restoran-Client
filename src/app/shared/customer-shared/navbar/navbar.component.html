@@ -1,0 +1,117 @@
+
+<div class="container-xxl position-relative p-0">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-5 py-3 py-lg-0">
+        <a href="" class="navbar-brand p-0">
+            <h1 class="text-warning m-0"><i class="fa fa-utensils me-3"></i>Restoran</h1>
+          
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="fa fa-bars"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto py-0 pe-4">
+              
+                <a class="nav-item nav-link" routerLink="/" routerLinkActive="active">Home</a>
+                
+            </div>
+            
+            <div *ngIf="!tokenExists">
+              <a  class="btn btn-warning py-2 px-4 mb-2 me-md-2" (click)="showLogInDialog()">Log In</a>
+
+              <a  class="btn btn-warning py-2 px-4 mb-2 me-md-2" (click)="showSignUpDialog()">Sign Up</a>
+
+              <a  class="btn btn-warning py-2 px-4 mb-2" (click)="adminlogin()">Admin</a>
+          </div>
+
+          <div *ngIf="tokenExists">
+            <a class="btn btn-warning py-2 px-4 mb-2 me-md-2" routerLink ="/my-profile">Profile</a> 
+            <a  class="btn btn-warning py-2 px-4 mb-2" (click)="logOut()">Log Out</a>
+          </div>
+            
+
+        </div>
+    </nav>
+</div>
+    <div class="popup-overlay" [ngClass]="{'show': logInVisible}">
+        <p-dialog header="Log In" [(visible)]="logInVisible" [style]="{width: '50vw'}" [modal]="true" [draggable]="false" [resizable]="false">
+            <div class="col-12 d-flex align-items-center justify-content-center">
+                <div class="p-fluid">
+                  <form [formGroup]="loginForm" (ngSubmit)="customerLogin()">
+                    <div class="form-group">
+                      <label for="email" class="form-label">E-Mail Id</label>
+                      <input type="email" id="email" class="form-control form-control-lg" formControlName="email" />
+                      <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="text-danger">Invalid email address</div>
+                    </div>
+                    
+                    <div class="form-group">
+                      <label for="password" class="form-label fs-5 font-weight-bold">Password</label>
+                      <p-password [(ngModel)]="register.password" formControlName="password" [feedback]="false" ></p-password>
+                    </div>
+                    <div class="form-group mt-3">
+                        <a [routerLink]="['/verify-email']" >Forgot Password</a>
+                    </div>
+                    
+                    <div class="mb-3"></div>
+                    
+                    
+                  </form>
+                </div>
+              </div>
+              <p-footer>
+                <p-button label="Log In" styleClass="p-button-warning" type="submit" (click)="customerLogin()"></p-button>
+              </p-footer>
+        </p-dialog>
+        <p-toast></p-toast>
+    </div>
+
+<!-- SIGN UP -->
+
+<div class="popup-overlay" [ngClass]="{'show': signUpVisible}">
+  <p-dialog header="Sign Up" [(visible)]="signUpVisible" [style]="{width: '50vw'}" [modal]="true" [draggable]="false" [resizable]="false">
+    <form [formGroup]="registerForm" >
+      <div class="col-12 d-flex align-items-center justify-content-center">
+        <div class="p-fluid form-container">
+          <div class="form-group">
+            <label for="name" class="form-label p-text-bolder">Name</label>
+            <input pInputText id="name" type="text" formControlName="name" class="form-control form-control-lg input-field" />
+          </div>
+          <div class="form-group">
+            <label for="email" class="form-label">E-Mail Id</label>
+            <input type="email" id="email" formControlName="email" class="form-control form-control-lg input-field" />
+            <div *ngIf="registerForm.get('mailId')?.invalid && registerForm.get('mailId')?.touched" class="text-danger">Invalid email address</div>
+          </div>
+
+
+          <div class="form-group" >
+            <label for="phoneNumber" class="form-label">Phone Number</label>
+            <input type="tel" id="phoneNumber" formControlName="phoneNumber" class="form-control form-control-lg input-field" maxlength="10" inputmode="numeric" />
+          </div>
+          <div class="form-group" >
+            <label for="password" class="form-label">Password</label>
+            <p-password type="password" formControlName="password" class="form-control form-control-lg input-field" />
+          </div>
+        </div>
+      </div>
+      <div class="col-12 d-flex align-items-center justify-content-center">
+        <div class="p-fluid">
+          <div class="mb-3"></div>
+          <div class="mt-2" *ngIf="!isEmailVerified">
+            <button class="btn btn-warning"  (click)="verifyEmail()">Verify Email</button>
+          </div>
+          <div *ngIf="showOtpInput" class="mt-2">
+            <h4>OTP</h4>
+            <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="{ length: 6 }"></ng-otp-input>
+          </div>
+          <p-footer>
+            <button type="submit" class="btn btn-warning py-2 px-4 mt-5" *ngIf="isEmailVerified" [disabled]="registerForm.invalid" (click)="onRegisterSubmit()">Sign Up</button>
+          </p-footer>
+        </div>
+      </div>
+    </form>
+   
+  </p-dialog>
+  <p-toast></p-toast>
+
+ 
+</div>
+

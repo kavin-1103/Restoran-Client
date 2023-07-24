@@ -1,0 +1,22 @@
+.final-container
+{
+    background: linear-gradient(rgba(15, 23, 43, .9), rgba(15, 23, 43, .9)), url(../../../../../assets/img/bg-hero.jpg);
+    background-position: center ;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.form-container
+{
+    background-color: rgb(48, 47, 47);
+}
+
+
+  
+  /* Add responsive styles for the reservation form */
+  .app-reservation-form {
+    max-width: 600px; /* Adjust the value based on your design */
+    width: 100%;
+    padding: 20px;
+  }
+  

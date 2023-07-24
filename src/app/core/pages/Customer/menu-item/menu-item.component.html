@@ -1,0 +1,77 @@
+<div class="container">
+    <div class="row">
+      <div class="col-lg-3">
+        <div class="sidebar">
+          <h1 class="sidebar-title">Categories</h1>
+          <div class="list-group">
+            <a class="list-group-item" (click)="filterMenu('All')" [ngClass]="{ 'active': selectedCategory === 'All' }">All</a>
+            <a class="list-group-item" *ngFor="let category of categories" (click)="filterMenu(category)" [ngClass]="{ 'active': selectedCategory === category.categoryName }">{{ category.categoryName }}</a>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-md-9">
+        <h1 class="card-title">Menu</h1>
+        <div class="input-group mt-3">
+          <input type="text" class="form-control" placeholder="Search Menu" [(ngModel)]="searchTerm">
+          <div class="input-group-append">
+            <button class="btn btn-primary" type="button" (click)="searchMenu()">Search</button>
+          </div>
+        </div>
+        <div class="card mt-5 bg-white">
+          <div class="row">
+            <div class="col-md-4" *ngFor="let menuItem of paginatedMenuItems;let i = index;">
+              <div class="table fade-up table-hover" [ngClass]="{ 'bg-success': menuItem.quantity > 0, 'bg-warning': menuItem.quantity === 0 }">
+                <div class="card-body">
+                  <h5 class="card-title">{{ menuItem.itemName }}</h5>
+                  <p class="card-text">{{ menuItem.description }}</p>
+                  <div class="quantity-control d-flex align-items-center justify-content-between mt-3 ">
+                    <div class="quantity-arrow arrow-up" (click)="decreaseQuantity(menuItem)" >
+                      <i class="fa-solid fa-angles-left"></i>
+                    </div>
+                    <span class="quantity mx-3">{{ menuItem.quantity }}</span>
+                    <div class="quantity-arrow arrow-down"  (click)="increaseQuantity(menuItem)">
+                      <i class="fa-solid fa-angles-right"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Displays Place Order and Cancel Order button  -->
+        
+
+        <div class="flex justify-content-center">
+          <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="menuItems.length" [rowsPerPageOptions]="[9]"></p-paginator>
+        </div>
+
+        <div  *ngIf="cartItems.length > 0">
+          <p-button  (click)="placeOrder()">Place Order</p-button>
+          <p-button class="p-2" (click)="cancelOrder()">Cancel Order</p-button>
+        </div>
+
+      </div>
+    </div>
+
+    
+      
+    <p-toast></p-toast>
+  </div>
+  
+
+  <div class="dialog">
+    <div class="flex justify-content-center">
+        <p-confirmDialog #cd [style]="{width: '50vw'}">
+            <ng-template pTemplate="header">
+                <h3>Cancel Booking??</h3>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <button type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"></button>
+                <button type="button" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"></button>
+            </ng-template>
+        </p-confirmDialog>
+    </div>
+</div>
+

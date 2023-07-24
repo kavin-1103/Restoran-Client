@@ -1,0 +1,85 @@
+ <div class="reservation-container ">
+<form [formGroup]="reservationForm"  class="reservation-form bg-warning p-4" >
+    <div class="row">
+      <div class="col-md-6">
+        <div class="mb-5">
+          <label for="reservationDate" class="form-label">Reservation Date:</label>
+          <input type="date" class="form-control" id="reservationDate" formControlName="reservationDate" required min="{{ minReservationDate }}" max="{{ maxReservationDate }}">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="numberOfGuests" class="form-label">Number of Guests:</label>
+          <input type="number" class="form-control" id="numberOfGuests" formControlName="numberOfGuests" required min="1">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="mb-5">
+          <label for="startTime" class="form-label">Start Time:</label>
+          <input class="form-control" type="time" formControlName="startTime" (ngModelChange)="updateEndTime()"
+          required min="10:00" max="16:00" step="1800">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="endTime" class="form-label">End Time:</label>
+          <input class="form-control" type="time" formControlName="endTime" required min="10:00" max="16:00"   >
+          
+        </div>
+      </div>
+    </div>
+     
+  <button
+  type="submit"
+  class="btn btn-primary d-flex justify-content-center"
+  [disabled]="reservationForm.invalid || !isShowAvailableTablesEnabled()"
+  (click)="submitReservation()"
+>
+  Show Available Tables
+</button>
+</form>
+</div>
+
+
+
+
+<div class="available-tables" *ngIf="showAvailableTables">
+  <h2 class="p-text-uppercase p-text-bold p-text-italic p-text-center">
+    Available Tables
+  </h2>
+    <div class="table-container">
+      <div class="row p-4">
+        <div class="col-md-4 p-4" *ngFor="let table of availableTables">
+          <div class="table bg-warning fade-up table-hover">
+            <p>Capacity: {{ table.capacity }}</p>
+            <p>Table Number: {{ table.tableNumber }}</p>
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="confirmReservation(table.tableId)"
+            >
+              Confirm
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="dialog">
+            <div class="card flex justify-content-center">
+                <p-toast></p-toast>
+                <p-confirmDialog #cd [style]="{width: '50vw'}">
+                    <ng-template pTemplate="header">
+                        <h3>Confirm Booking</h3>
+                    </ng-template>
+                    <ng-template pTemplate="footer">
+                        <button type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"></button>
+                        <button type="button" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"></button>
+                    </ng-template>
+                </p-confirmDialog>
+            </div>
+        </div>
+    </div>
+  </div>
+<p-toast></p-toast> 
+
