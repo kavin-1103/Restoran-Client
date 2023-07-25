@@ -99,7 +99,7 @@ export class AuthenticationService {
     //Verify for Valid OTP
     registerUser(dto: any)
     {
-        
+        console.log(dto);
         return this.http.post<any>(`${environment.baseUrl}/Auth/Verify`,dto.value);
     }
     

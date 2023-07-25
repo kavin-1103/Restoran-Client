@@ -19,7 +19,7 @@ interface TableData {
   selector: 'app-reservation-form',
   templateUrl: './reservation-form.component.html',
   styleUrls: ['./reservation-form.component.scss'],
-  providers:[MessageService,ConfirmationService,DialogService]
+  providers: [MessageService, ConfirmationService, DialogService]
 
 })
 
@@ -40,10 +40,10 @@ export class ReservationFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private http: HttpClient,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService , 
-    private router : Router ,
+    private messageService: MessageService,
+    private router: Router,
   ) {
-      this.reservationForm = this.formBuilder.group({
+    this.reservationForm = this.formBuilder.group({
       reservationDate: ['', [Validators.required]],
       startTime: ['', Validators.required],
       endTime: [{ value: '', disabled: true }, Validators.required],
@@ -55,12 +55,12 @@ export class ReservationFormComponent implements OnInit {
 
   ngOnInit(): void {
     const currentDate = new Date();
-    const maxDate =  new Date();
+    const maxDate = new Date();
     maxDate.setDate(maxDate.getDate() + 5);
     this.minReservationDate = currentDate.toISOString().split('T')[0];
     this.maxReservationDate = maxDate.toISOString().split('T')[0];
-    
-    
+
+
   }
 
 
@@ -72,31 +72,34 @@ export class ReservationFormComponent implements OnInit {
         startTime: this.getTimeInISOStringFormat(
           this.reservationForm.get('startTime')?.value
         ),
+
+
         endTime: this.getTimeInISOStringFormat(
           this.reservationForm.get('endTime')?.value
         ),
         numberOfGuests: this.reservationForm.get('numberOfGuests')?.value,
       };
+      
 
-      console.log(reservationData);
+        console.log(reservationData);
       this.http
         .post<any>(`${environment.baseUrl}/customer/Reservation/Tables`, reservationData)
         .subscribe(
           (response) => {
-           
+
             console.log('Response from the backend:', response);
             if (response?.data && Array.isArray(response.data)) {
-         
+
               this.availableTables = response.data;
-              this.showAvailableTables = true; 
+              this.showAvailableTables = true;
             } else {
               console.error('Invalid response data:', response);
             }
           },
           (error) => {
-         
+
             console.error('Error sending data to the backend:', error);
-            this.availableTables = []; 
+            this.availableTables = [];
             this.showAvailableTables = false;
           }
         );
@@ -126,28 +129,30 @@ export class ReservationFormComponent implements OnInit {
     const selectedDate = this.reservationForm.get('reservationDate')?.value;
     const dateTimeString = `${selectedDate}T${timeString}`;
     const time = new Date(dateTimeString);
+    time.setHours(time.getHours() + 5);
+    time.setMinutes(time.getMinutes() + 30);
     return time.toISOString();
   }
 
 
 
-// Updates End Time When Start Time is Selected by User
+  // Updates End Time When Start Time is Selected by User
 
   updateEndTime() {
     const startTime = this.reservationForm.value.startTime;
     if (startTime) {
       const startDate = new Date(`2000-01-01T${startTime}`);
 
-    
+
       const endTimeOptions = [];
       let nextTime = new Date(startDate);
       while (nextTime.getHours() < 16) {
         nextTime.setMinutes(nextTime.getMinutes() + 30);
-        if (nextTime.getHours() === 16) break; 
+        if (nextTime.getHours() === 16) break;
         endTimeOptions.push(nextTime.toTimeString().slice(0, 5));
       }
 
-     
+
       this.reservationForm.get('endTime')?.setValue(endTimeOptions[0]);
     }
   }
@@ -159,9 +164,9 @@ export class ReservationFormComponent implements OnInit {
     this.confirmationService.confirm({
       message: 'Are you sure that you want to proceed with the reservation?',
       accept: () => {
-        
+
         const reservationData = {
-          tableId: tableId, 
+          tableId: tableId,
           reservationDate: this.getReservationDateISOString(),
           startTime: this.getTimeInISOStringFormat(
             this.reservationForm.get('startTime')?.value
@@ -172,7 +177,7 @@ export class ReservationFormComponent implements OnInit {
           numberOfGuests: this.reservationForm.get('numberOfGuests')?.value,
         };
 
-       
+
         this.http
           .post<any>(
             `${environment.baseUrl}/customer/Reservation/ReserveTable`,
@@ -185,16 +190,17 @@ export class ReservationFormComponent implements OnInit {
                 summary: 'Reservation Successful',
                 detail: 'Your reservation has been confirmed.',
               });
-              
+
               const reservationId = response.data.reservationId;
-              
-              setTimeout(() => { 
-                this.router.navigate(['/menu-item'], 
-                { queryParams: { table_id: tableId , reservation_id : reservationId }, 
-                replaceUrl:true
-              });
+
+              setTimeout(() => {
+                this.router.navigate(['/menu-item'],
+                  {
+                    queryParams: { table_id: tableId, reservation_id: reservationId },
+                    replaceUrl: true
+                  });
               }, 2000);
-             
+
               this.showAvailableTables = false;
             },
             (error) => {
@@ -206,30 +212,30 @@ export class ReservationFormComponent implements OnInit {
                 detail: 'An error occurred while making the reservation.',
               });
 
-              this.showAvailableTables = false; 
+              this.showAvailableTables = false;
             }
           );
       }
     });
-}
-
-isShowAvailableTablesEnabled(): boolean {
-  const startTime = this.reservationForm.get('startTime')?.value;
-
-  if (startTime) {
-    const startHour = parseInt(startTime.split(':')[0], 10);
-    const startMinute = parseInt(startTime.split(':')[1], 10);
-
-    // Check if startTime is between 10:00 am (10:00) and 3:30 pm (15:30)
-    return (
-      (startHour === 10 && startMinute >= 0) ||
-      (startHour > 10 && startHour < 15) ||
-      (startHour === 15 && startMinute <= 30)
-    );
   }
 
-  // If startTime is not selected, disable the button
-  return false;
-}
+  isShowAvailableTablesEnabled(): boolean {
+    const startTime = this.reservationForm.get('startTime')?.value;
+
+    if (startTime) {
+      const startHour = parseInt(startTime.split(':')[0], 10);
+      const startMinute = parseInt(startTime.split(':')[1], 10);
+
+      // Check if startTime is between 10:00 am (10:00) and 3:30 pm (15:30)
+      return (
+        (startHour === 10 && startMinute >= 0) ||
+        (startHour > 10 && startHour < 15) ||
+        (startHour === 15 && startMinute <= 30)
+      );
+    }
+
+    // If startTime is not selected, disable the button
+    return false;
+  }
 
 }

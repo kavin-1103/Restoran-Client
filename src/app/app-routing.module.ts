@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CustomerModule } from './core/pages/Customer/customer.module';
 import { AdminModule } from './core/pages/Admin/admin.module';
 import { UnAuthorizedComponent } from './core/pages/UnAuthorized/admin-restricted.component';
+import { PageNotFoundComponent } from './core/pages/PageNotFound/page-not-found/page-not-found.component';
 
 
 
@@ -24,7 +25,7 @@ export const routes: Routes = [
   {path:'restricted' , component : UnAuthorizedComponent},
   
   {path: '**', redirectTo: '/404'},
-  // { path: '404', component: NotFoundComponent }
+  { path: '404', component: PageNotFoundComponent }
 
 ];
 

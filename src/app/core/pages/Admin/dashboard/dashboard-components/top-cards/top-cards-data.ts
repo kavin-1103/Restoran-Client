@@ -17,7 +17,7 @@ export const topcards: topcard[] = [
     },
     {
         bgcolor: 'danger',
-        icon: 'bi bi-coin',
+        icon: 'bi bi-table',
         total: '',
         subtitle: 'Total Dinings'
     },

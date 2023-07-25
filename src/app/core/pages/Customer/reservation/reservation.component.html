@@ -7,10 +7,8 @@
     <div class="container-xxl py-5  hero-header mb-5">
         <div class="container text-center my-5 pt-1 pb-1">
             <h1 class="display-3 text-white mb-3 animated slideInDown">Reserve Table</h1>
-           
         </div>
     </div>
-    
 </div>
 
 
@@ -20,16 +18,16 @@
     <div class="row">
         <div class="col-lg-6">
         <p-sidebar [(visible)]="sidebarVisible">
-            <h3>Information</h3>
+            <h2>Information</h2>
             <p class="m-0">
                 <ul>
-                  <li>Our restaurant opens at 10:00 AM and closes at 4:00 PM.</li>
-                  <li>Booking slots are available from 10:00 AM to 3:30 PM.</li>
+                  <li>Our restaurant opens at <b>10:00 AM </b>and closes at <b>4:00 PM.</b></li>
+                  <li>Booking slots are available from <b>10:00 AM </b>to <b>3:30 PM.</b></li>
                 </ul>
           
         </p-sidebar>
     </div>
-        <p-button (click)="sidebarVisible = true" icon="pi pi-arrow-right"></p-button>
+        <p-button (click)="sidebarVisible = true" icon="pi pi-arrow-right" label="Information" styleClass="p-button-warning"></p-button>
       
         <!-- Reservation Form -->
         <app-reservation-form></app-reservation-form>

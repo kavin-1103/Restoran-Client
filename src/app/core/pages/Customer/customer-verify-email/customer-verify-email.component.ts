@@ -40,8 +40,8 @@ export class CustomerVerifyEmailComponent implements OnInit {
 
   ngOnInit(): void {
     this.resetPasswordForm = this.formBuilder.group({
-      email: [null, [Validators.required, Validators.email]],
-      otp: [null, [Validators.required]]
+      email: ['', [Validators.required, Validators.email]],
+      otp: ['', [Validators.required]]
     });
   }
 
@@ -51,6 +51,7 @@ export class CustomerVerifyEmailComponent implements OnInit {
 
   sendOTP() {
     const email = this.resetPasswordForm.get('email')?.value;
+    
     if (!email) {
       
       this.messageService.add({

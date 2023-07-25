@@ -32,6 +32,7 @@ export class MenuItemComponent implements OnInit {
   reservationId! : number;
 
   paginatedMenuItems: MenuItem[] = [];
+  prevCartItems: MenuItem[] = [];
 
   currentPage: number = 1;
   totalPages: number = 0;
@@ -283,7 +284,7 @@ searchMenu(): void {
 placeOrder(): void {
   this.cartItems = this.menuItems.filter((item: MenuItem) => item.quantity > 0);
   if (this.cartItems.length === 0) {
-    console.log('No items selected for the order.');
+    
     return;
   }
 
@@ -359,6 +360,7 @@ cancelOrder(): void {
 }
 
 getFoodItemById(categoryId: number): void {
+  this.prevCartItems = [...this.cartItems];
   this.customerService.getFoodItemByCategory(categoryId).subscribe(
     (response: any) => {
       this.menuItems = response.data.map((item: any) => ({
@@ -372,11 +374,12 @@ getFoodItemById(categoryId: number): void {
 
       // Update the quantities from cartItems if available
       this.menuItems.forEach((menuItem) => {
-        const cartItem = this.cartItems.find((item) => item.foodItemId === menuItem.foodItemId);
+        const cartItem = this.prevCartItems.find((item) => item.foodItemId === menuItem.foodItemId);
         if (cartItem) {
           menuItem.quantity = cartItem.quantity;
         }
       });
+      this.paginateMenuItems();
     },
     (error: any) => {
       console.error(error);

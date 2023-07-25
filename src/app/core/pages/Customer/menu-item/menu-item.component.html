@@ -20,7 +20,7 @@
         </div>
         <div class="card mt-5 bg-white">
           <div class="row">
-            <div class="col-md-4" *ngFor="let menuItem of paginatedMenuItems;let i = index;">
+            <div class="col-md-4" *ngFor="let menuItem of menuItems;let i = index;">
               <div class="table fade-up table-hover" [ngClass]="{ 'bg-success': menuItem.quantity > 0, 'bg-warning': menuItem.quantity === 0 }">
                 <div class="card-body">
                   <h5 class="card-title">{{ menuItem.itemName }}</h5>

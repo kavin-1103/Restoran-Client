@@ -40,20 +40,6 @@ export class AdminLogInComponent implements OnInit{
   ngAfterViewInit() {
     //this.adminLogin();
   }
-  
-
-
-  getUsername(){
-   // return this.loginForm?.get("userName")
-  }
-
-  getPassword(){
-    //return this.loginForm?.get("password")
-  }  
-  
-  onSubmit() {
-   
-}
 
 success : boolean = false;
 

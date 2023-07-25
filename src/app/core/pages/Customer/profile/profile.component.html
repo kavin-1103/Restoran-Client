@@ -27,31 +27,34 @@
         </div>
         <div  *ngIf="activeItem === 'profile'">
           <div >
-            <h3>Profile</h3>
+            <h2>My Profile</h2>
           </div>
-          <div class="">
-            <div class="profile-info">
-              <img src="https://restoran.blob.core.windows.net/restoran/profile.jpg" alt="Profile Image" class="profile-image">
-              <div class="details">
-                <div class="row">
-                  <div class="col-4"><strong>Name:</strong></div>
-                  <div class="col-8">{{ userDetails?.name }}</div>
-                </div>
-                <div class="row">
-                  <div class="col-4"><strong>Email:</strong></div>
-                  <div class="col-8">{{ userDetails?.email }}</div>
-                </div>
-                <div class="row">
-                  <div class="col-4"><strong>Phone Number:</strong></div>
-                  <div class="col-8">{{ userDetails?.phone }}</div>
-                </div>
-                <div class="row">
-                  <div class="col-4"><strong>Number of Orders:</strong></div>
-                  <div class="col-8">{{ userDetails?.numberOfOrders }}</div>
+          <div class="card">
+            <div class="card-body">
+              <div class="profile-info">
+                <img src="https://restoran.blob.core.windows.net/restoran/profile.jpg" alt="Profile Image" class="profile-image">
+                <div class="details mt-5">
+                  <div class="row">
+                    <div class="col-4"><strong>Name:</strong></div>
+                    <div class="col-8"><strong>{{ userDetails?.name }}</strong></div>
+                  </div>
+                  <div class="row">
+                    <div class="col-4"><strong>Email:</strong></div>
+                    <div class="col-8"><strong>{{ userDetails?.email }}</strong></div>
+                  </div>
+                  <div class="row">
+                    <div class="col-4"><strong>Phone Number:</strong></div>
+                    <div class="col-8"><strong>{{ userDetails?.phone }}</strong></div>
+                  </div>
+                  <div class="row">
+                    <div class="col-4"><strong>Number of Orders:</strong></div>
+                    <div class="col-8"><strong>{{ userDetails?.numberOfOrders }}</strong></div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+          
         </div>
   
         <div *ngIf="activeItem === 'orders'">
