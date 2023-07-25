@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
-
-import { CartComponent } from './cart/cart.component';
 import { SharedModule } from 'app/shared/customer-shared/customer-shared.module';
 import { ReservationComponent } from './reservation/reservation.component';
 import { MenuItemComponent } from './menu-item/menu-item.component';
@@ -26,7 +24,7 @@ import { SidebarModule } from 'primeng/sidebar';
 
 @NgModule({
   declarations: [
-    CartComponent,
+
     ReservationComponent,
     MenuItemComponent,
     ReservationFormComponent,

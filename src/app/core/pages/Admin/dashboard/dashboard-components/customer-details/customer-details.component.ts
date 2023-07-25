@@ -29,8 +29,6 @@ export class CustomerDetailsComponent implements OnInit {
     this.dashboardService.getAllCustomers().subscribe((response:any)=>{
       this.customers = response.data;
       this.gridData = response.data;
-      console.log(this.gridData);
-      console.log(this.customers);
     })
   }
 

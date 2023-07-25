@@ -10,8 +10,6 @@ import { AuthService } from './auth.service';
 export const authguardGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot): boolean | UrlTree => {
-    //const auth = new AuthService();
-  //  const router = new Router();
   const auth = inject(AuthService);
    const router = inject(Router);
   

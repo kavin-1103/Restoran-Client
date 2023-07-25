@@ -13,7 +13,7 @@ export const topcards: topcard[] = [
         bgcolor: 'success',
         icon: 'bi bi-wallet',
         total: '',
-        subtitle: 'Total Customer'
+        subtitle: 'Total Customers'
     },
     {
         bgcolor: 'danger',

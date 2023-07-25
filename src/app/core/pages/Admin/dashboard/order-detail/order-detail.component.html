@@ -6,6 +6,7 @@
       [sort]="gridState.sort"
       [pageable]="true"
       [sortable]="true"
+      (dataStateChange)="dataStateChange($event)"
       [navigable]="true" >
       <kendo-grid-column field="customerName" title="Customer Name"></kendo-grid-column>
       <kendo-grid-column field="tableNumber" title="Table Number"></kendo-grid-column>

@@ -4,11 +4,7 @@ import { AdminLogInComponent } from './admin-log-in/admin-log-in.component';
 import { AppRoutingModule } from 'app/app-routing.module';
 import { FullComponent } from './full/full.component';
 
-// import { AboutComponent } from './about/about.component';
-// import { ContactComponent } from './contact/contact.component';
-// import { HomeComponent } from './Components/home/home.component';
-import { SidebarComponent } from "app/shared/admin-shared/sidebar/sidebar.component";
-import { NavigationComponent } from "app/shared/admin-shared/header/navigation.component";
+
 import { AdminDashboardComponent } from './dashboard/dashboard.component';
 import { FoodItemComponent } from './dashboard/food-item/food-item.component';
 import { DiningTableComponent } from './dashboard/dining-table/dining-table.component';

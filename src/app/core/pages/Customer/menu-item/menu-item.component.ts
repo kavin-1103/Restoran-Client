@@ -32,7 +32,7 @@ export class MenuItemComponent implements OnInit {
   reservationId! : number;
 
   paginatedMenuItems: MenuItem[] = [];
-  prevCartItems: MenuItem[] = [];
+ // prevCartItems: MenuItem[] = [];
 
   currentPage: number = 1;
   totalPages: number = 0;
@@ -41,6 +41,7 @@ export class MenuItemComponent implements OnInit {
 
   first: number = 0;
   rows: number = 9 ;
+  selectedItems : MenuItem[] = [];
 
     // Method to handle pagination changes and update the paginatedMenuItems array
   onPageChange(event: any) {
@@ -282,7 +283,7 @@ searchMenu(): void {
 }
 
 placeOrder(): void {
-  this.cartItems = this.menuItems.filter((item: MenuItem) => item.quantity > 0);
+  this.selectedItems = this.cartItems.filter((item: MenuItem) => item.quantity > 0);
   if (this.cartItems.length === 0) {
     
     return;
@@ -360,7 +361,7 @@ cancelOrder(): void {
 }
 
 getFoodItemById(categoryId: number): void {
-  this.prevCartItems = [...this.cartItems];
+
   this.customerService.getFoodItemByCategory(categoryId).subscribe(
     (response: any) => {
       this.menuItems = response.data.map((item: any) => ({
@@ -374,7 +375,7 @@ getFoodItemById(categoryId: number): void {
 
       // Update the quantities from cartItems if available
       this.menuItems.forEach((menuItem) => {
-        const cartItem = this.prevCartItems.find((item) => item.foodItemId === menuItem.foodItemId);
+        const cartItem = this.cartItems.find((item) => item.foodItemId === menuItem.foodItemId);
         if (cartItem) {
           menuItem.quantity = cartItem.quantity;
         }

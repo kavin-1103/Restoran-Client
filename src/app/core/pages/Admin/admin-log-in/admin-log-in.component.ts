@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { AfterViewInit } from '@angular/core';
 import { Output, EventEmitter } from '@angular/core';
 import { AuthenticationService } from 'app/core/services/AuthService/auth.service';
 
@@ -46,22 +45,15 @@ success : boolean = false;
 adminLogin() {
 
  
-console.log("Came here");
-  this.authService.login(this.logInForm).subscribe(
-    (response: any) => {
-      console.log("Logged In successfully");
+
+  this.authService.login(this.logInForm).subscribe({
+    next : (response: any) => {
       
       setTimeout(() => {
         this.router.navigateByUrl('/dashboard');
       }, 1000); 
     },
-    (error: any) => {
-      
-      console.error(error);
-      console.log('Status:', error.status);
-      console.log('Message:', error.message);
-      console.log('Errors:', error.error.errors);
-
+    error :(error: any) => {
       
         this.messageService.add({
           severity: 'error',
@@ -69,7 +61,7 @@ console.log("Came here");
           detail: error.error.message,
         });
       }
-  );
+    });
 }
 
 
@@ -77,11 +69,10 @@ console.log("Came here");
 forgotPassword()
 {
   this.email = this.logInForm.get('email')?.value;
-  console.log(this.email);
 
 
-  this.authService.emailExist(this.email).subscribe(
-    (response: any) => {
+  this.authService.emailExist(this.email).subscribe({
+    next :(response: any) => {
       if (response.success) {
         this.emailVerified.emit(this.email);
         this.router.navigate(['/admin-reset-password']);
@@ -93,13 +84,13 @@ forgotPassword()
         });
       }
     },
-    (error:any) => {
+    error :(error:any) => {
       this.messageService.add({
         severity: 'error',
         summary: 'Error',
         detail: error.error.message,
       });
-    });
+    }});
 }
 
 }

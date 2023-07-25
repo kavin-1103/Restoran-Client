@@ -27,9 +27,8 @@ export class SalesRatioComponent implements OnInit {
         const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
         const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 
-        this.databaseService.getorderDetailsPerDay().subscribe(
-          (response: any) => {
-            console.log("Order Details Per day Fetched");
+        this.databaseService.getorderDetailsPerDay().subscribe({
+          next:(response: any) => {
 
             const dates = response.dates;
             const counts = response.counts;
@@ -82,17 +81,10 @@ export class SalesRatioComponent implements OnInit {
             };
 
           },
-          (error: any) => {
+          error:(error: any) => {
             // Handle error response
-            console.error(error);
-            console.log('Status:', error.status);
-            console.log('Message:', error.message);
-            console.log('Errors:', error.error.errors);
             }
-        );
-
-
-        
+          });
   }
 
 }

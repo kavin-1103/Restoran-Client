@@ -1,17 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-
 import { Observable } from "rxjs";
-
-import { Validators, FormBuilder, FormGroup } from "@angular/forms";
-
-import {
-  GridDataResult,
-} from "@progress/kendo-angular-grid";
-
-import { State, process } from "@progress/kendo-data-query";
-
-import { Keys } from "@progress/kendo-angular-common";
-
+import { DatePipe } from '@angular/common';
+import {GridDataResult} from "@progress/kendo-angular-grid";
+import { DataResult, State, process } from "@progress/kendo-data-query";
 import { OrderDetail , OrderItem} from './order-detail-data';
 import { OrderDetailService } from './order-detail.service';
 import { map } from "rxjs/operators";
@@ -21,12 +12,12 @@ import { map } from "rxjs/operators";
   selector: 'app-food-item',
   templateUrl: './order-detail.component.html',
   styleUrls: ['./order-detail.component.scss'],
-  providers: [OrderDetailService],
+  providers: [OrderDetailService,DatePipe],
 })
 
 export class OrderDetailComponent implements OnInit {
   public view?: Observable<GridDataResult>;
-  public orderDetails: OrderDetail[] = []; // Initialize as an empty array
+  public orderDetails: OrderDetail[] = []; 
 
   public gridState: State = {
     sort: [],
@@ -34,7 +25,7 @@ export class OrderDetailComponent implements OnInit {
     take: 5,
   };
 
-  constructor(private orderDetailService: OrderDetailService) {}
+  constructor(private orderDetailService: OrderDetailService, private datePipe : DatePipe) {}
 
   ngOnInit(): void {
     this.getOrderDetails();
@@ -44,11 +35,31 @@ export class OrderDetailComponent implements OnInit {
     this.view = this.orderDetailService.getAllOrderDetails().pipe(
       map((response: any) => {
         if (response && response.data) {
-          return response.data.map((item: any) => this.mapOrderDetail(item));
+          const processedData: DataResult = process(response.data, this.gridState);
+
+          const dataWithFormattedOrderDate = processedData.data.map((item: any) => {
+            return {
+              ...item,
+              orderDate: this.formatOrderDate(item.orderDate),
+            };
+          });
+
+          return {
+            data: dataWithFormattedOrderDate,
+            total: processedData.total,
+          };
         }
-        return [];
+        return {
+          data: [],
+          total: 0,
+        };
       })
     );
+  }
+
+  private formatOrderDate(orderDate: string): string {
+    const date = new Date(orderDate);
+    return this.datePipe.transform(date, 'yyyy-MM-dd') ?? '';
   }
 
   private mapOrderDetail(data: any): OrderDetail {
@@ -64,6 +75,13 @@ export class OrderDetailComponent implements OnInit {
       orderDate: formattedOrderDate, // Use the formatted order date
       orderItems: data.orderItems.map((item: any) => this.mapOrderItem(item)),
     };
+  }
+
+
+  public dataStateChange(state:any) : void
+  {
+    this.gridState = state;
+    this.getOrderDetails();
   }
   
 

@@ -23,11 +23,6 @@ export class ProfileComponent  implements OnInit{
       (response:any) => {
 
         this.userDetails = response.data;
-        // console.log(response.data)
-        // this.userDetails.name = response.data.name? response.data.name : '' ;
-        // this.userDetails.email = response.data.email;
-        // this.userDetails.phone = response.data.phone;
-        // this.userDetails.numberOfOrders = response.data.numberOfOrders;
 
       },
       (error:any) => {
