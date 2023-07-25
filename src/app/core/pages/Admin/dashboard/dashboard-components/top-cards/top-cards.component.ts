@@ -19,26 +19,26 @@ export class TopCardsComponent implements OnInit {
   ngOnInit(): void {
 
     this.dashboardService.getCustomerCount().subscribe((response:any)=>{
-     // console.log(response);
+     
       this.topcards[0].total = response.data ;
 
     })
     this.dashboardService.getFoodItemCount().subscribe((response:any)=>
     {
-      //console.log(response);
+    
       this.topcards[2].total = response.data ;
     })
 
     this.dashboardService.getTotalTables().subscribe((response:any)=>
     {
-      //console.log(response);
+   
       this.topcards[1].total = response.data ;
     })
 
 
     this.dashboardService.getTotalOrders().subscribe((response:any)=>
     {
-      //console.log(response);
+      
       this.topcards[3].total = response.data ;
     })
 

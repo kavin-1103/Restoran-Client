@@ -9,7 +9,7 @@ import { AdminDashboardComponent } from './dashboard/dashboard.component';
 import { FoodItemComponent } from './dashboard/food-item/food-item.component';
 import { DiningTableComponent } from './dashboard/dining-table/dining-table.component';
 import { OrderDetailComponent } from './dashboard/order-detail/order-detail.component';
-import { ReviewComponent } from './dashboard/review/review.component';
+
 import { authguardGuard } from 'app/core/guards/authguard.guard';
 
 
@@ -32,8 +32,7 @@ export const adminRoutes: Routes = [
         { path: 'food-item', component: FoodItemComponent }, 
         {path : 'dining-table',component: DiningTableComponent},
         {path : 'order-detail',component:OrderDetailComponent},
-        {path: 'review',component:ReviewComponent}
-  
+
       ]
        
     }

@@ -84,8 +84,8 @@ export class ReservationFormComponent implements OnInit {
         console.log(reservationData);
       this.http
         .post<any>(`${environment.baseUrl}/customer/Reservation/Tables`, reservationData)
-        .subscribe(
-          (response) => {
+        .subscribe({
+          next:(response) => {
 
             console.log('Response from the backend:', response);
             if (response?.data && Array.isArray(response.data)) {
@@ -93,16 +93,16 @@ export class ReservationFormComponent implements OnInit {
               this.availableTables = response.data;
               this.showAvailableTables = true;
             } else {
-              console.error('Invalid response data:', response);
+             
             }
           },
-          (error) => {
+          error:(error) => {
 
             console.error('Error sending data to the backend:', error);
             this.availableTables = [];
             this.showAvailableTables = false;
           }
-        );
+    });
     }
   }
 
@@ -183,8 +183,8 @@ export class ReservationFormComponent implements OnInit {
             `${environment.baseUrl}/customer/Reservation/ReserveTable`,
             reservationData
           )
-          .subscribe(
-            (response) => {
+          .subscribe({
+            next:(response) => {
               this.messageService.add({
                 severity: 'success',
                 summary: 'Reservation Successful',
@@ -203,7 +203,7 @@ export class ReservationFormComponent implements OnInit {
 
               this.showAvailableTables = false;
             },
-            (error) => {
+            error:(error) => {
               console.error('Error sending data to the backend:', error);
 
               this.messageService.add({
@@ -214,7 +214,7 @@ export class ReservationFormComponent implements OnInit {
 
               this.showAvailableTables = false;
             }
-          );
+      });
       }
     });
   }

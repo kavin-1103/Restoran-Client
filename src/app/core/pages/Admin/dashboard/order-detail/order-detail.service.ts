@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, forkJoin, of, zip } from 'rxjs';
+import {  Observable,} from 'rxjs';
 
-import { OrderDetail } from './order-detail-data';
+
 import { environment } from 'environments/environment';
 
 

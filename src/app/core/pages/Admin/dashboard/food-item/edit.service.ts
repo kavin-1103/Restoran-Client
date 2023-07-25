@@ -41,18 +41,17 @@ export class EditService extends BehaviorSubject<FoodItem[]> {
       return super.next(this.data);
     }
 
-    this.fetch().subscribe(
-      (response) => {
+    this.fetch().subscribe({
+      next:(response) => {
         const data = response.data;
         this.data = data;
         this.originalData = cloneData(data);
         super.next(data);
       },
-      (error) => {
+      error:(error) => {
         // Handle the error
-        console.error('Error: Failed to fetch data', error);
       }
-    );
+  });
   }
 
   public create(item: FoodItem): void {
@@ -163,13 +162,13 @@ public update(item: FoodItem): void {
           return this.http.post<any>(BASE_URL, requestData).pipe(
             map(response => {
               // Update the foodItemId of the created item with the value from the response
-              console.log(response);
+
               item.foodItemId = response.foodItemId;
               return response; // Returning the response for further processing if needed
             }),
             catchError(error => {
               // Handle the error here
-              console.log(error);
+              
               const errorMessage = error?.error?.message || 'An error occurred';
               this.messageService.add({ severity: 'error', summary: 'Error', detail: error });
               // Continue the observable with an empty object to avoid halting forkJoin

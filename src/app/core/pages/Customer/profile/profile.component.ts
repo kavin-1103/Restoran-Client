@@ -19,16 +19,15 @@ export class ProfileComponent  implements OnInit{
               private router : Router) {}
 
   ngOnInit(): void {
-    this.customerService.getProfileDetails().subscribe(
-      (response:any) => {
+    this.customerService.getProfileDetails().subscribe({
+      next:(response:any) => {
 
         this.userDetails = response.data;
 
       },
-      (error:any) => {
-        console.error('Error fetching user details:', error);
+      error:(error:any) => {
       }
-    );
+  });
   }
 
   goToMyOrders() {

@@ -77,8 +77,8 @@ export class CustomerVerifyEmailComponent implements OnInit {
 
   verifyOTP() {
  
-    this.authService.registerUser(this.resetPasswordForm).subscribe(
-      (response: any) => {
+    this.authService.registerUser(this.resetPasswordForm).subscribe({
+      next:(response: any) => {
         if (response.success) {
           
           this.messageService.add({ severity: 'success', summary: 'OTP Verification', detail: 'OTP verification successful!' });
@@ -95,10 +95,10 @@ export class CustomerVerifyEmailComponent implements OnInit {
           this.messageService.add({ severity: 'error', summary: 'Invalid OTP', detail: 'Invalid OTP, please try again.' });
         }
       },
-      (error: any) => {
+      error:(error: any) => {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'An error occurred while verifying OTP.' });
       }
-    );
+  });
 }
 
 onSubmit() {

@@ -298,11 +298,11 @@ placeOrder(): void {
     })),
   };
 
-  console.log(order);
+ 
   // Assuming you have a method in your customerService to place the order
-  this.customerService.placeOrder(order).subscribe(
-    (response: any) => {
-      console.log('Order placed successfully:', response);
+  this.customerService.placeOrder(order).subscribe({
+    next:(response: any) => {
+      
       // Reset cartItems after successful order placement
       this.cartItems = [];
       this.messageService.add({
@@ -317,10 +317,10 @@ placeOrder(): void {
       }, 2000);
 
     },
-    (error: any) => {
-      console.error('Error placing order:', error);
+    error:(error: any) => {
+      
     }
-  );
+});
 }
 
 cancelOrder(): void {
@@ -337,9 +337,9 @@ cancelOrder(): void {
     const reservationId = +params['reservation_id'];
 
     // Call the deleteReservation method to cancel the reservation
-    this.customerService.deleteReservation(reservationId).subscribe(
-      (response: any) => {
-        console.log('Reservation cancelled successfully:', response);
+    this.customerService.deleteReservation(reservationId).subscribe({
+      next:(response: any) => {
+        
         // Navigate to the home page after successful cancellation
         this.messageService.add({
           severity: 'info',
@@ -353,17 +353,17 @@ cancelOrder(): void {
         }, 2000);
 
       },
-      (error: any) => {
-        console.error('Error cancelling reservation:', error);
+      error:(error: any) => {
+
       }
-    );
+  });
   });
 }
 
 getFoodItemById(categoryId: number): void {
 
-  this.customerService.getFoodItemByCategory(categoryId).subscribe(
-    (response: any) => {
+  this.customerService.getFoodItemByCategory(categoryId).subscribe({
+    next:(response: any) => {
       this.menuItems = response.data.map((item: any) => ({
         foodItemId: item.foodItemId,
         categoryId: item.categoryId,
@@ -382,10 +382,10 @@ getFoodItemById(categoryId: number): void {
       });
       this.paginateMenuItems();
     },
-    (error: any) => {
+    error:(error: any) => {
       console.error(error);
     }
-  );
+});
 }
 
 }

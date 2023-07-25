@@ -4,7 +4,6 @@ import { SharedModule } from 'app/shared/customer-shared/customer-shared.module'
 import { ReservationComponent } from './reservation/reservation.component';
 import { MenuItemComponent } from './menu-item/menu-item.component';
 import { ReservationFormComponent } from './reservation/reservation-form/reservation-form.component';
-import { AvailableDiningsComponent } from './reservation/available-dinings/available-dinings.component';
 import { RouterModule } from '@angular/router';
 import { CustomerRoutingModule } from './customer-routing.module';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -28,7 +27,6 @@ import { SidebarModule } from 'primeng/sidebar';
     ReservationComponent,
     MenuItemComponent,
     ReservationFormComponent,
-    AvailableDiningsComponent,
     CustomerVerifyEmailComponent,
     CustomerResetPasswordComponent,
     ProfileComponent,

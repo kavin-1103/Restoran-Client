@@ -42,19 +42,19 @@ export class CategoryService extends BehaviorSubject<FoodCategory[]> {
       return super.next(this.data);
     }
 
-    this.fetch().subscribe(
-      (response) => {
+    this.fetch().subscribe({
+      next:(response) => {
         const data = response.data;
         this.data = data;
-        console.log(this.data);
+        
         this.originalData = cloneData(data);
         super.next(data);
       },
-      (error) => {
+      error:(error) => {
         // Handle the error
-        console.error('Error: Failed to fetch data', error);
+        
       }
-    );
+  });
   }
 
   public create(item: FoodCategory): void {
