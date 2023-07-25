@@ -5,16 +5,13 @@ import { AppComponent } from './app.component';
 import { CarouselModule } from "primeng/carousel";
 import { ButtonModule } from "primeng/button";
 import { ImageModule } from "primeng/image";
-import { TableReservationComponent } from './table-reservation/table-reservation.component';
-import { ReservationFormComponent } from './reservation-form/reservation-form.component';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {  ReactiveFormsModule } from '@angular/forms';
 import { IntlModule } from "@progress/kendo-angular-intl";
 import { DateInputsModule } from "@progress/kendo-angular-dateinputs";
 import { LabelModule } from "@progress/kendo-angular-label";
 import { FormFieldModule } from "@progress/kendo-angular-inputs";
 import { ButtonsModule } from "@progress/kendo-angular-buttons";
-import { AvailableTablesComponent } from './available-tables/available-tables.component';
 import { HttpClientModule  } from '@angular/common/http';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
@@ -36,7 +33,6 @@ import * as TablerIcons from 'angular-tabler-icons/icons';
 import { KnobModule } from 'primeng/knob';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { PaginatorModule } from 'primeng/paginator';
-import { UserLogInComponent } from './user-log-in/user-log-in.component';
 import { DialogModule } from 'primeng/dialog';
 import { DialogService } from 'primeng/dynamicdialog';
 import { PasswordModule } from 'primeng/password';
@@ -53,7 +49,6 @@ import { routes } from './app-routing.module';
 import { AdminModule } from './core/pages/Admin/admin.module';
 import { CustomerModule } from './core/pages/Customer/customer.module';
 import { DashboardModule } from './core/pages/Admin/dashboard/dashboard.module';
-import { SpinnerComponent } from './shared/common/spinner/spinner.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { UnAuthorizedComponent } from './core/pages/UnAuthorized/admin-restricted.component';
 import { SharedModule } from './shared/customer-shared/customer-shared.module';
@@ -65,11 +60,6 @@ import { PageNotFoundComponent } from './core/pages/PageNotFound/page-not-found/
 @NgModule({
   declarations: [
     AppComponent,
-    TableReservationComponent,
-    ReservationFormComponent,
-    AvailableTablesComponent,
-    UserLogInComponent,
-    SpinnerComponent,
     UnAuthorizedComponent,
     PageNotFoundComponent,
     

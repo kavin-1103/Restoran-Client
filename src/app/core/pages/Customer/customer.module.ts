@@ -13,9 +13,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogModule } from 'primeng/dialog';
-import { ConfirmDialogComponent } from 'app/confirm-dialog/confirm-dialog.component';
 import {  ToastModule } from 'primeng/toast';
-
 import { CustomerVerifyEmailComponent } from './customer-verify-email/customer-verify-email.component';
 import { CardModule } from 'primeng/card';
 import { NgOtpInputModule } from  'ng-otp-input';
@@ -33,13 +31,10 @@ import { SidebarModule } from 'primeng/sidebar';
     MenuItemComponent,
     ReservationFormComponent,
     AvailableDiningsComponent,
-    ConfirmDialogComponent,
     CustomerVerifyEmailComponent,
     CustomerResetPasswordComponent,
     ProfileComponent,
     MyOrdersComponent,
-
-    
 ],
   imports: [
     CommonModule,
