@@ -4,8 +4,7 @@ import { PasswordModule } from "primeng/password";
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from "./navbar/navbar.component";
-import { ContactComponent } from "./contact/contact.component";
-import { FooterComponent } from "./footer/footer.component";
+
 
 import { FormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog'
@@ -19,8 +18,6 @@ import { RouterModule } from "@angular/router";
 @NgModule({
   declarations: [
     NavbarComponent,
-    ContactComponent,
-    FooterComponent,
     
 ],
   imports: [
@@ -36,9 +33,6 @@ import { RouterModule } from "@angular/router";
 ],
 exports: [
     NavbarComponent,
-    ContactComponent,
-    FooterComponent,
-
 ],
 providers: [MessageService]
 })
