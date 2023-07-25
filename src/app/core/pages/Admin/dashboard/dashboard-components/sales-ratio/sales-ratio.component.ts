@@ -43,7 +43,8 @@ export class SalesRatioComponent implements OnInit {
                     data: counts,
                     fill: false,
                     borderColor: documentStyle.getPropertyValue('--blue-500'),
-                    tension: 0.4
+                    tension: 0.4,
+                    backgroundColor: 'rgba(255,167,38,0.2)',
                   }
                 ]
               };

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 import { FormBuilder, FormGroup} from '@angular/forms';
-import { PasswordModule } from 'primeng/password';
 import { AuthenticationService } from 'app/core/services/AuthService/auth.service';
 import { MessageService } from 'primeng/api';
 
@@ -104,8 +103,8 @@ export class NavbarComponent implements OnInit {
   }
 
   customerLogin() {
-    this.authService.login(this.loginForm).subscribe(
-      (response: any) => {
+    this.authService.login(this.loginForm).subscribe({
+      next:(response: any) => {
         
         this.messageService.add({
           severity: 'success',
@@ -120,7 +119,7 @@ export class NavbarComponent implements OnInit {
         }, 1000);
         
       },
-      (error: any) => {
+      error:(error: any) => {
         // Handle error response
         console.error(error);
         console.log('Status:', error.status);
@@ -134,7 +133,7 @@ export class NavbarComponent implements OnInit {
             detail: error.error.message,
           });
         }
-    );
+      });
     
   }
 
@@ -145,11 +144,9 @@ export class NavbarComponent implements OnInit {
   verifyEmail()
   {
     
-    
-    
       // Call your service to send OTP here and pass the email as a parameter
-      this.authService.verifyUser(this.registerForm).subscribe(
-        (response) => {
+      this.authService.verifyUser(this.registerForm).subscribe({
+        next:(response) => {
           // Handle the service response, maybe show OTP input if success
           if (response.success) {
           this.messageService.add({
@@ -169,14 +166,14 @@ export class NavbarComponent implements OnInit {
           });
         }
         },
-        (error) => {
+        error:(error) => {
           this.messageService.add({
             severity: 'error',
-            summary: error,
-            detail: error.message ,
+            summary: "Error",
+            detail: "Some inputs are not filled" ,
           });
         }
-      );
+  });
     }
 
 
@@ -207,7 +204,7 @@ export class NavbarComponent implements OnInit {
           this.messageService.add({
             severity: 'error',
             summary: 'Error',
-            detail: response.message,
+            detail: "Invalid OTP",
           });
         }
         

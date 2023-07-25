@@ -96,7 +96,7 @@ export class CustomerVerifyEmailComponent implements OnInit {
         }
       },
       error:(error: any) => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'An error occurred while verifying OTP.' });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Invalid OTP, please try again.' });
       }
   });
 }
