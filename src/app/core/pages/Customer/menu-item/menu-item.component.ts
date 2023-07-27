@@ -276,9 +276,9 @@ searchMenu(): void {
   if (this.searchTerm.trim() === '') {
     this.getFoodItems();
   } else {
-    this.menuItems = this.menuItems.filter((item: MenuItem) =>
+    this.paginatedMenuItems = this.paginatedMenuItems.filter((item: MenuItem) =>
       item.itemName.toLowerCase().includes(this.searchTerm.toLowerCase())
-    );
+    )
   }
 }
 

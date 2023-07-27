@@ -170,7 +170,7 @@ export class NavbarComponent implements OnInit {
           this.messageService.add({
             severity: 'error',
             summary: "Error",
-            detail: "Some inputs are not filled" ,
+            detail: "Some input fields are empty" ,
           });
         }
   });
@@ -185,8 +185,8 @@ export class NavbarComponent implements OnInit {
     console.log(this.otp);
     const otp = this.otp
     const dto: VerifyOtpDto = { email, otp };
-    this.authService.registerCustomer(dto).subscribe(
-      (response: any) => {
+    this.authService.registerCustomer(dto).subscribe({
+      next:(response: any) => {
         console.log(response);
         if (response.success) {
           this.messageService.add({
@@ -209,8 +209,8 @@ export class NavbarComponent implements OnInit {
         }
         
       },
-      (error: any) => {  }
-    );
+      error:(error: any) => {  }
+  });
   }
   
   checkPasswordMatch() {

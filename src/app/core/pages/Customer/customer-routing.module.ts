@@ -12,6 +12,7 @@ import { CustomerVerifyEmailComponent } from './customer-verify-email/customer-v
 import { CustomerResetPasswordComponent } from './customer-reset-password/customer-reset-password.component';
 import { HomeModule } from './home/home.module';
 import { ProfileComponent } from './profile/profile.component';
+import { Role } from 'app/models/role';
 
 
 
@@ -21,9 +22,9 @@ const customerRoutes: Routes = [
       { path: 'home', component: HomeComponent },
       { path: 'verify-email', component: CustomerVerifyEmailComponent },
       {path : 'reset-password', component: CustomerResetPasswordComponent},
-      { path: 'menu-item', component: MenuItemComponent ,canActivate: [authguardGuard], data:{role:'Customer'}},
-      {path : 'reserve-dining', component:  ReservationComponent, canActivate: [authguardGuard], data:{role:'Customer'}},
-      {path : 'my-profile', component: ProfileComponent,  canActivate:[authguardGuard], data:{role:'Customer'}}
+      { path: 'menu-item', component: MenuItemComponent ,canActivate: [authguardGuard], data:{role:Role.Customer}},
+      {path : 'reserve-dining', component:  ReservationComponent, canActivate: [authguardGuard], data:{role:Role.Customer}},
+      {path : 'my-profile', component: ProfileComponent,  canActivate:[authguardGuard], data:{role:Role.Customer}}
   ];
 
   

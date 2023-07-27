@@ -81,7 +81,7 @@ export class ReservationFormComponent implements OnInit {
       };
       
 
-        console.log(reservationData);
+       
       this.http
         .post<any>(`${environment.baseUrl}/customer/Reservation/Tables`, reservationData)
         .subscribe({

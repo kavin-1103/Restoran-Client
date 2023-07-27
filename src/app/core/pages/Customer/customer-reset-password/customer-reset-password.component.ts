@@ -55,8 +55,8 @@ export class CustomerResetPasswordComponent implements OnInit{
       const password: string = this.passwordForm.get('confirmPassword')?.value;
       
       const requestBody= { email: this.email, password: password };
-        this.authService.changePassword(requestBody).subscribe(
-          (response) => {
+        this.authService.changePassword(requestBody).subscribe({
+          next:(response) => {
             // Handle success response here
             if(response.success)
             {
@@ -71,11 +71,11 @@ export class CustomerResetPasswordComponent implements OnInit{
               this.messageService.add({ severity: 'warn', summary: response.error, detail: response.error });
             }
           },
-          (error) => {
+          error:(error) => {
             // Handle error response here
             console.error('Password reset failed.', error);
           }
-        );
+    });
       }
   }
 }
